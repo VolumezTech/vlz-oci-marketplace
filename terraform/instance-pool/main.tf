@@ -1,3 +1,8 @@
+provider "oci" {
+  auth   = "InstancePrincipal"
+  region = var.region  # Reference the region variable
+}
+
 ### Random
 resource "random_string" "deploy_id" {
   length  = 4
