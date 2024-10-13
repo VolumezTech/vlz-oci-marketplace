@@ -1,0 +1,30 @@
+variables:
+  - name: region
+    type: string
+    default: us-chicago-1
+
+  - name: ad_number
+    type: number
+    description: Availability Domain Number
+
+  - name: fault_domains
+    type: list(string)
+    description: Fault Domains
+
+  - name: subnet_cidr_block_list
+    type: list(string)
+    default:
+      - 10.1.20.0/24
+      - 10.1.21.0/24
+
+  - name: tenancy_ocid
+    type: string
+    description: value of the tenancy OCID
+
+  - name: compartment_ocid
+    type: string
+    description: value of the compartment OCID
+
+  - name: config_file_profile
+    type: string
+    description: Profile name in the config file
