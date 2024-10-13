@@ -1,46 +1,220 @@
+# Title shown in Application Information tab.
+title: Video Analytics Application
+# Sub Title shown in Application Information tab.
+description: Deploy a video analytics application on OCI.
+schemaVersion: 1.1.0
+version: "20241013"
+
+# URL of Logo Icon used on Application Information tab. You can copy the contentId from the Marketplace listing logo URL in the Marketplace Partner portal.
+# (Optional)
+logoUrl: https://cloudmarketplace.oracle.com/marketplace/content?contentId=YOUR_CONTENT_ID 
+
+# Used in Application Information tab to Hyperlink Title and Logo to the Marketplace
+# Listing.
+# Also used to link to Listing Usage section for "View Instructions".
+# (Optional) If it is missing, Application Information uses the
+# "marketplace-listing-id" tag for the same purpose.
+source:
+  type: marketplace
+  reference: YOUR_LISTING_ID
+
+locale: "en"
 variableGroups:
-  - title: "Networking"
-    visible: true
+  - title: "Hidden Variable Group"
+    visible: false
     variables:
-      -region
-      -ad_number
-      -subnet_cidr_block_list
-      -fault_domains
+      - tenancy_ocid
+      - compartment_ocid
+      - config_file_profile 
 
-  - title: "Credentials"
-    visible: true
+  - title: "Region and Availability"
     variables:
-      -tenancy_ocid
-      -compartment_ocid
-      -config_file_profile
+      - region
+      - ad_number
+      - fault_domains
 
-  - title: "VLZ"
-    visible: true
+  - title: "Virtual Cloud Network"
     variables:
-      -vlz_refresh_token
-      -vlz_s3_path_to_conn
-      -vlz_rest_apigw
+      - subnet_cidr_block_list
 
-  - title: "Media"
-    visible: true
+  - title: "Video Load Balancer Zero (VLZ)"
     variables:
-      -media_image_id
-      -media_num_of_instances
-      -media_shape
-      -media_num_of_ocpus
-      -media_memory_in_gbs
-      -media_use_placement_group
-      -media_ignore_cpu_mem_req
+      - vlz_refresh_token
+      - vlz_s3_path_to_conn
+      - vlz_rest_apigw
 
-  - title: "App"
-    visible: true
+  - title: "Media Instances"
     variables:
-      -app_image_id
-      -app_num_of_instances
-      -app_shape
-      -app_num_of_ocpus
-      -app_memory_in_gbs
-      -app_use_placement_group
-      -app_ignore_cpu_mem_req
+      - media_image_id
+      - media_shape
+      - media_memory_in_gbs
+      - media_num_of_ocpus
+      - media_ignore_cpu_mem_req
+      - media_num_of_instances
+      - media_use_placement_group
+
+  - title: "Application Instances"
+    variables:
+      - app_image_id
+      - app_shape
+      - app_memory_in_gbs
+      - app_num_of_ocpus
+      - app_ignore_cpu_mem_req
+      - app_num_of_instances
+      - app_use_placement_group
+
+variables:
+
+  # Hidden Variables 
+  tenancy_ocid:
+    type: string
+    title: Tenancy OCID
+    description: The OCID of your tenancy.
+    required: true
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: Compartment OCID
+    description: The OCID of the compartment to deploy resources into.
+    required: true
+
+  config_file_profile:
+    type: string
+    title: OCI Config Profile
+    description: The name of the profile to use in your OCI config file.
+    default: "DEFAULT"
 
 
+  # Region and Availability
+  region:
+    type: oci:identity:region:name
+    title: Region
+    description: The OCI region to deploy resources into.
+    default: "us-chicago-1"
+
+  ad_number:
+    type: number
+    title: Availability Domain Number
+    description: The availability domain number to deploy instances in.
+    required: true
+
+  fault_domains:
+    type: list(string)
+    title: Fault Domains
+    description: A list of fault domains to distribute instances across.
+    required: true
+
+  # Virtual Cloud Network
+  subnet_cidr_block_list:
+    type: list(string)
+    title: Subnet CIDR Blocks
+    description: A list of CIDR blocks for the subnets.
+    default: ["10.1.20.0/24", "10.1.21.0/24"]
+
+  # VLZ
+  vlz_refresh_token:
+    type: string
+    title: VLZ Refresh Token
+    description: The refresh token for Video Load Balancer Zero.
+    required: true
+
+  vlz_s3_path_to_conn:
+    type: string
+    title: VLZ S3 Path to Connector
+    description: The S3 path to the VLZ connector.
+    required: true
+
+  vlz_rest_apigw:
+    type: string
+    title: VLZ REST API Gateway
+    description: The URL of the VLZ REST API Gateway.
+    required: true
+
+  # Media Instances
+  media_image_id:
+    type: oci:core:image:id
+    title: Media Image OCID
+    description: The OCID of the image to use for media instances.
+    # You can set a default image OCID here if applicable
+    default: "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
+
+  media_shape:
+    type: oci:core:instanceshape:name
+    title: Media Shape
+    description: The shape to use for media instances.
+    default: "VM.DenseIO.E4.Flex"
+
+  media_memory_in_gbs:
+    type: number
+    title: Media Memory (GB)
+    description: The amount of memory (in GB) for media instances.
+    required: true
+
+  media_num_of_ocpus:
+    type: number
+    title: Media OCPUs
+    description: The number of OCPUs for media instances.
+    required: true
+
+  media_ignore_cpu_mem_req:
+    type: bool
+    title: Ignore Media CPU/Memory Requirements
+    description: Whether to ignore CPU and memory requirements for media instances.
+
+  media_num_of_instances:
+    type: number
+    title: Number of Media Instances
+    description: The number of media instances to create.
+    required: true
+
+  media_use_placement_group:
+    type: bool
+    title: Use Placement Group for Media Instances
+    description: Whether to use a placement group for media instances.
+
+  # Application Instances
+  app_image_id:
+    type: oci:core:image:id
+    title: Application Image OCID
+    description: The OCID of the image to use for application instances.
+    # You can set a default image OCID here if applicable
+    default: "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
+
+  app_shape:
+    type: oci:core:instanceshape:name
+    title: Application Shape
+    description: The shape to use for application instances.
+    default: "VM.DenseIO.E4.Flex"
+
+  app_memory_in_gbs:
+    type: number
+    title: Application Memory (GB)
+    description: The amount of memory (in GB) for application instances.
+    required: true
+
+  app_num_of_ocpus:
+    type: number
+    title: Application OCPUs
+    description: The number of OCPUs for application instances.
+    required: true
+
+  app_ignore_cpu_mem_req:
+    type: bool
+    title: Ignore Application CPU/Memory Requirements
+    description: Whether to ignore CPU and memory requirements for application instances.
+
+  app_num_of_instances:
+    type: number
+    title: Number of Application Instances
+    description: The number of application instances to create.
+    required: true
+
+  app_use_placement_group:
+    type: bool
+    title: Use Placement Group for Application Instances
+    description: Whether to use a placement group for application instances.
+
+
+# Outputs (add your relevant outputs here)
+outputs:
+  # ... your output definitions ...
