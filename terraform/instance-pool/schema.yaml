@@ -7,7 +7,7 @@ version: "20241013"
 
 # URL of Logo Icon used on Application Information tab. You can copy the contentId from the Marketplace listing logo URL in the Marketplace Partner portal.
 # (Optional)
-logoUrl: https://partner.cloudmarketplace.oracle.com/partner/content?contentId=174607522&lmd=2024-10-09T12:10:58.667Z
+logoUrl: https://partner.cloudmarketplace.oracle.com/partner/content?contentId=167616210
 
 # Used in Application Information tab to Hyperlink Title and Logo to the Marketplace
 # Listing.
@@ -16,7 +16,7 @@ logoUrl: https://partner.cloudmarketplace.oracle.com/partner/content?contentId=1
 # "marketplace-listing-id" tag for the same purpose.
 source:
   type: marketplace
-  reference: 174478571
+  reference: 167616210
 
 locale: "en"
 variableGroups:
