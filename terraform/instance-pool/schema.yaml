@@ -37,7 +37,7 @@ variableGroups:
     variables:
       - subnet_cidr_block_list
 
-  - title: "Video Load Balancer Zero (VLZ)"
+  - title: "Volumez (VLZ)"
     variables:
       - vlz_refresh_token
       - vlz_s3_path_to_conn
@@ -132,14 +132,14 @@ variables:
 
   # Media Instances
   media_image_id:
-    type: oci:core:image:id
+    type: string
     title: Media Image OCID
     description: The OCID of the image to use for media instances.
     # You can set a default image OCID here if applicable
     default: "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
 
   media_shape:
-    type: oci:core:instanceshape:name
+    type: string
     title: Media Shape
     description: The shape to use for media instances.
     default: "VM.DenseIO.E4.Flex"
@@ -174,14 +174,14 @@ variables:
 
   # Application Instances
   app_image_id:
-    type: oci:core:image:id
+    type: string
     title: Application Image OCID
     description: The OCID of the image to use for application instances.
     # You can set a default image OCID here if applicable
     default: "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
 
   app_shape:
-    type: oci:core:instanceshape:name
+    type: string
     title: Application Shape
     description: The shape to use for application instances.
     default: "VM.DenseIO.E4.Flex"
