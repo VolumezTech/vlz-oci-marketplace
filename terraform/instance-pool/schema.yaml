@@ -1,13 +1,13 @@
 # Title shown in Application Information tab.
-title: Video Analytics Application
+title: Volumez on Oracle Cloud Infrastructure
 # Sub Title shown in Application Information tab.
-description: Deploy a video analytics application on OCI.
+description: Deploy Volumez stack on OCI Marketplace.
 schemaVersion: 1.1.0
 version: "20241013"
 
 # URL of Logo Icon used on Application Information tab. You can copy the contentId from the Marketplace listing logo URL in the Marketplace Partner portal.
 # (Optional)
-logoUrl: https://cloudmarketplace.oracle.com/marketplace/content?contentId=YOUR_CONTENT_ID 
+logoUrl: https://volumez.com/wp-content/uploads/2023/02/logo-light.svg
 
 # Used in Application Information tab to Hyperlink Title and Logo to the Marketplace
 # Listing.
@@ -16,7 +16,7 @@ logoUrl: https://cloudmarketplace.oracle.com/marketplace/content?contentId=YOUR_
 # "marketplace-listing-id" tag for the same purpose.
 source:
   type: marketplace
-  reference: YOUR_LISTING_ID
+  reference: 174478571
 
 locale: "en"
 variableGroups:
