@@ -7,7 +7,7 @@ version: "20241013"
 
 # URL of Logo Icon used on Application Information tab. You can copy the contentId from the Marketplace listing logo URL in the Marketplace Partner portal.
 # (Optional)
-logoUrl: https://volumez.com/wp-content/uploads/2023/02/logo-light.svg
+logoUrl: https://partner.cloudmarketplace.oracle.com/partner/content?contentId=174607522&lmd=2024-10-09T12:10:58.667Z
 
 # Used in Application Information tab to Hyperlink Title and Logo to the Marketplace
 # Listing.
