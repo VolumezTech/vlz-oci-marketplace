@@ -21,7 +21,7 @@ source:
 locale: "en"
 variableGroups:
   - title: "Hidden Variable Group"
-    visible: false
+    visible: true
     variables:
       - tenancy_ocid
       - compartment_ocid
