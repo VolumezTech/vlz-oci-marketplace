@@ -1,30 +1,46 @@
-variables:
-  - name: region
-    type: string
-    default: us-chicago-1
+variableGroups:
+  - title: "Networking"
+    visible: true
+    variables:
+      -region
+      -ad_number
+      -subnet_cidr_block_list
+      -fault_domains
 
-  - name: ad_number
-    type: number
-    description: Availability Domain Number
+  - title: "Credentials"
+    visible: true
+    variables:
+      -tenancy_ocid
+      -compartment_ocid
+      -config_file_profile
 
-  - name: fault_domains
-    type: list(string)
-    description: Fault Domains
+  - title: "VLZ"
+    visible: true
+    variables:
+      -vlz_refresh_token
+      -vlz_s3_path_to_conn
+      -vlz_rest_apigw
 
-  - name: subnet_cidr_block_list
-    type: list(string)
-    default:
-      - 10.1.20.0/24
-      - 10.1.21.0/24
+  - title: "Media"
+    visible: true
+    variables:
+      -media_image_id
+      -media_num_of_instances
+      -media_shape
+      -media_num_of_ocpus
+      -media_memory_in_gbs
+      -media_use_placement_group
+      -media_ignore_cpu_mem_req
 
-  - name: tenancy_ocid
-    type: string
-    description: value of the tenancy OCID
+  - title: "App"
+    visible: true
+    variables:
+      -app_image_id
+      -app_num_of_instances
+      -app_shape
+      -app_num_of_ocpus
+      -app_memory_in_gbs
+      -app_use_placement_group
+      -app_ignore_cpu_mem_req
 
-  - name: compartment_ocid
-    type: string
-    description: value of the compartment OCID
 
-  - name: config_file_profile
-    type: string
-    description: Profile name in the config file
