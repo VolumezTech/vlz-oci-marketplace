@@ -20,12 +20,12 @@ source:
 
 locale: "en"
 variableGroups:
-  - title: "Hidden Variable Group"
-    visible: true
-    variables:
-      - tenancy_ocid
-      - compartment_ocid
-      - config_file_profile 
+  # - title: "Hidden Variable Group"
+  #   visible: true
+  #   variables:
+  #     - tenancy_ocid
+  #     - compartment_ocid
+  #     - config_file_profile 
 
   - title: "Region and Availability"
     variables:
@@ -66,23 +66,23 @@ variableGroups:
 variables:
 
   # Hidden Variables 
-  tenancy_ocid:
-    type: string
-    title: Tenancy OCID
-    description: The OCID of your tenancy.
-    required: true
+  # tenancy_ocid:
+  #   type: string
+  #   title: Tenancy OCID
+  #   description: The OCID of your tenancy.
+  #   required: true
 
-  compartment_ocid:
-    type: oci:identity:compartment:id
-    title: Compartment OCID
-    description: The OCID of the compartment to deploy resources into.
-    required: true
+  # compartment_ocid:
+  #   type: oci:identity:compartment:id
+  #   title: Compartment OCID
+  #   description: The OCID of the compartment to deploy resources into.
+  #   required: true
 
-  config_file_profile:
-    type: string
-    title: OCI Config Profile
-    description: The name of the profile to use in your OCI config file.
-    default: "DEFAULT"
+  # config_file_profile:
+  #   type: string
+  #   title: OCI Config Profile
+  #   description: The name of the profile to use in your OCI config file.
+  #   default: "DEFAULT"
 
 
   # Region and Availability

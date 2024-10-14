@@ -15,24 +15,24 @@ variable "fault_domains" {
 
 variable "subnet_cidr_block_list" {
   type    = list(string)
-  default = ["10.1.20.0/24", "10.1.21.0/24"]
+  default = ["10.1.20.0/24"]
 }
 
-variable "tenancy_ocid" {
-  type        = string
-  description = "value of the tenancy OCID"
-}
+# variable "tenancy_ocid" {
+#   type        = string
+#   description = "value of the tenancy OCID"
+# }
 
-variable "compartment_ocid" {
-  type        = string
-  description = "value of the compartment OCID"
-}
+# variable "compartment_ocid" {
+#   type        = string
+#   description = "value of the compartment OCID"
+# }
 
-variable "config_file_profile" {
-  type        = string
-  description = "Name of the configure profile in ~/.oci/config"
-  default     = "DEFAULT"
-}
+# variable "config_file_profile" {
+#   type        = string
+#   description = "Name of the configure profile in ~/.oci/config"
+#   default     = "DEFAULT"
+# }
 
 ### VLZ ###
 
