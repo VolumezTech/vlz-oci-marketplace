@@ -123,7 +123,7 @@ variables:
     type: list(string)
     title: Subnet CIDR Blocks
     description: A list of CIDR blocks for the subnets.
-    default: ["10.1.20.0/24", "10.1.21.0/24"]
+    default: ["10.1.20.0/24"]
 
   # VLZ
   vlz_refresh_token:
@@ -153,7 +153,7 @@ variables:
     default: "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
 
   media_shape:
-    type: string
+    type: oci:core:instanceshape:name	
     title: Media Shape
     description: The shape to use for media instances.
     default: "VM.DenseIO.E4.Flex"
@@ -195,7 +195,7 @@ variables:
     default: "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
 
   app_shape:
-    type: string
+    type: oci:core:instanceshape:name	
     title: Application Shape
     description: The shape to use for application instances.
     default: "VM.DenseIO.E4.Flex"
