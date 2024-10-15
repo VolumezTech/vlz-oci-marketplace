@@ -9,12 +9,14 @@ fi
 EMAIL="$1"
 PASSWORD="$2"
 
+echo "Signing up user with email: $EMAIL"
+
 curl -X POST \
   https://api.volumez.com/signup \
   -H 'Content-Type: application/json' \
-  -d '{
-    "email": "$EMAIL",
-    "name": "name",
-    "password": "$PASSWORD",
-    "cloudProvider": "aws"
-  }'
+  -d "{
+    \"email\": \"$EMAIL\",
+    \"name\": \"name\",
+    \"password\": \"$PASSWORD\",
+    \"cloudProvider\": \"aws\"
+  }"
