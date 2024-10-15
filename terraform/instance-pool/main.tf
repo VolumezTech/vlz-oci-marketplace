@@ -3,6 +3,11 @@ provider "oci" {
   region = var.region  # Reference the region variable
 }
 
+resource "null_resource" "pre_create_script" {
+  provisioner "local-exec" {
+    command = "cloudinit/singup_user.sh ${var.email} ${var.password}"
+  }
+}
 ### Random
 resource "random_string" "deploy_id" {
   length  = 4

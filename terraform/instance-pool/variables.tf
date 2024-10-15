@@ -1,16 +1,30 @@
+variable "email" {
+  type        = string
+  description = "Email address of the user"
+  
+}
+
+variable "password" {
+  type        = string
+  description = "Password of the user"
+  
+}
+
 variable "region" {
   type    = string
-  default = "us-chicago-1"
+  default = "us-ashburn-1"
 }
 
 variable "ad_number" {
   type        = number
   description = "Availability Domain Number"
+  default     = 1
 }
 
 variable "fault_domains" {
   type        = list(string)
   description = "Fault Domains"
+  default = []
 }
 
 variable "subnet_cidr_block_list" {
@@ -18,15 +32,15 @@ variable "subnet_cidr_block_list" {
   default = ["10.1.20.0/24"]
 }
 
-# variable "tenancy_ocid" {
-#   type        = string
-#   description = "value of the tenancy OCID"
-# }
+variable "tenancy_ocid" {
+  type        = string
+  description = "value of the tenancy OCID"
+}
 
-# variable "compartment_ocid" {
-#   type        = string
-#   description = "value of the compartment OCID"
-# }
+variable "compartment_ocid" {
+  type        = string
+  description = "value of the compartment OCID"
+}
 
 # variable "config_file_profile" {
 #   type        = string

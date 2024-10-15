@@ -20,11 +20,13 @@ source:
 
 locale: "en"
 variableGroups:
-  # - title: "Hidden Variable Group"
-  #   visible: true
-  #   variables:
-  #     - tenancy_ocid
-  #     - compartment_ocid
+  - title: "Hidden Variable Group"
+    visible: true
+    variables:
+      - email
+      - password
+      - tenancy_ocid
+      - compartment_ocid
   #     - config_file_profile 
 
   - title: "Region and Availability"
@@ -66,17 +68,29 @@ variableGroups:
 variables:
 
   # Hidden Variables 
-  # tenancy_ocid:
-  #   type: string
-  #   title: Tenancy OCID
-  #   description: The OCID of your tenancy.
-  #   required: true
+  email:
+    type: string
+    title: Email
+    description: Your email address.
+    required: true
 
-  # compartment_ocid:
-  #   type: oci:identity:compartment:id
-  #   title: Compartment OCID
-  #   description: The OCID of the compartment to deploy resources into.
-  #   required: true
+  password:
+    type: string
+    title: Password
+    description: Your password.
+    required: true
+
+  tenancy_ocid:
+    type: string
+    title: Tenancy OCID
+    description: The OCID of your tenancy.
+    required: true
+
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    title: Compartment OCID
+    description: The OCID of the compartment to deploy resources into.
+    required: true
 
   # config_file_profile:
   #   type: string
