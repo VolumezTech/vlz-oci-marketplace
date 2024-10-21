@@ -21,7 +21,8 @@ data "cloudinit_config" "operator" {
     content = templatefile(
       local.operator_template, {
         operator_timezone   = "Asia/Jerusalem",
-        vlz_refresh_token   = var.vlz_refresh_token,
+        email               = var.email,
+        password            = var.password,
         vlz_rest_apigw      = var.vlz_rest_apigw,
         vlz_s3_path_to_conn = var.vlz_s3_path_to_conn,
       }

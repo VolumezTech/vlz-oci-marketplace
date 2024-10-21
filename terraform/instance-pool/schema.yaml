@@ -23,11 +23,14 @@ variableGroups:
   - title: "Hidden Variable Group"
     visible: true
     variables:
-      - email
-      - password
       - tenancy_ocid
       - compartment_ocid
-  #     - config_file_profile 
+
+  - title: "Login Credentials"
+    visible: true
+    variables:
+      - email
+      - password
 
   - title: "Region and Availability"
     variables:
@@ -36,12 +39,14 @@ variableGroups:
       - fault_domains
 
   - title: "Virtual Cloud Network"
+    visible: false
     variables:
       - subnet_cidr_block_list
 
   - title: "Volumez (VLZ)"
+    visible: false
     variables:
-      - vlz_refresh_token
+      # - vlz_refresh_token
       - vlz_s3_path_to_conn
       - vlz_rest_apigw
 
@@ -126,23 +131,25 @@ variables:
     default: ["10.1.20.0/24"]
 
   # VLZ
-  vlz_refresh_token:
-    type: string
-    title: VLZ Refresh Token
-    description: The refresh token for Video Load Balancer Zero.
-    required: true
+  # vlz_refresh_token:
+  #   type: string
+  #   title: VLZ Refresh Token
+  #   description: The refresh token for Video Load Balancer Zero.
+  #   required: true
 
   vlz_s3_path_to_conn:
     type: string
     title: VLZ S3 Path to Connector
     description: The S3 path to the VLZ connector.
     required: true
+    default: "https://signup.volumez.com/oci_poc_14/ubuntu"
 
   vlz_rest_apigw:
     type: string
     title: VLZ REST API Gateway
     description: The URL of the VLZ REST API Gateway.
     required: true
+    default: "https://oci.api.volumez.com"
 
   # Media Instances
   media_image_id:

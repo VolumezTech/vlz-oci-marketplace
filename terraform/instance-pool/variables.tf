@@ -42,11 +42,11 @@ variable "compartment_ocid" {
   description = "value of the compartment OCID"
 }
 
-# variable "config_file_profile" {
-#   type        = string
-#   description = "Name of the configure profile in ~/.oci/config"
-#   default     = "DEFAULT"
-# }
+variable "config_file_profile" {
+  type        = string
+  description = "Name of the configure profile in ~/.oci/config"
+  default     = "DEFAULT"
+}
 
 ### VLZ ###
 

@@ -1,5 +1,5 @@
-email = "itay.ginorz@gmail.com"
-password = "Ggg123!"
+email = "itay.ginor@volumez.com"
+password = "Ginor2021#"
 
 ### Networking ###
 region                 = "us-phoenix-1"
