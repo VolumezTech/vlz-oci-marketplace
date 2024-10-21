@@ -67,6 +67,13 @@ variable "vlz_rest_apigw" {
   default = "https://oci.api.volumez.com"
 }
 
+
+### Envs Sizes ###
+variable "env_size" {
+  type =list(string)
+  default = ["small", "medium", "large"]
+}
+
 ### Media ###
 
 variable "media_image_id" {
