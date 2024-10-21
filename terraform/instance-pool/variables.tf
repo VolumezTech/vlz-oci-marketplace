@@ -58,13 +58,13 @@ variable "compartment_ocid" {
 variable "vlz_s3_path_to_conn" {
   type        = string
   description = "S3 Path to Connector"
-  #example = "https://<bucket-name>.s3.amazonaws.com/connector/<folder-name>/ubuntu"
+  default     = "https://signup.volumez.com/oci_poc_14/ubuntu"
 }
 
 variable "vlz_rest_apigw" {
   type        = string
   description = "VLZ REST API Gateway"
-  #example = https://<apigw-id>.execute-api.<region>.amazonaws.com/dev
+  default = "https://oci.api.volumez.com"
 }
 
 ### Media ###
