@@ -21,6 +21,27 @@ source:
 locale: "en"
 variableGroups:
   - title: "Hidden Variable Group"
+    visible: false
+    variables:
+      - subnet_cidr_block_list
+      - vlz_s3_path_to_conn
+      - vlz_rest_apigw
+      - media_image_id
+      - media_shape
+      - media_memory_in_gbs
+      - media_num_of_ocpus
+      - media_ignore_cpu_mem_req
+      - media_num_of_instances
+      - media_use_placement_group
+      - app_image_id
+      - app_shape
+      - app_memory_in_gbs
+      - app_num_of_ocpus
+      - app_ignore_cpu_mem_req
+      - app_num_of_instances
+      - app_use_placement_group
+
+  - title: "OCI Configuration"
     visible: true
     variables:
       - tenancy_ocid
@@ -38,10 +59,10 @@ variableGroups:
       - ad_number
       - fault_domains
 
-  - title: "Virtual Cloud Network"
-    visible: false
-    variables:
-      - subnet_cidr_block_list
+  # - title: "Virtual Cloud Network"
+  #   visible: false
+  #   variables:
+  #     - subnet_cidr_block_list
 
   - title: "Volumez (VLZ)"
     visible: false

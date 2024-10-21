@@ -97,6 +97,7 @@ variable "media_memory_in_gbs" {
 variable "media_num_of_ocpus" {
   type        = number
   description = "Memory in GBs"
+  default     = 8
 }
 
 variable "media_ignore_cpu_mem_req" {
@@ -140,6 +141,7 @@ variable "app_memory_in_gbs" {
 variable "app_num_of_ocpus" {
   type        = number
   description = "Memory in GBs"
+  default     = 8
 }
 
 variable "app_ignore_cpu_mem_req" {
