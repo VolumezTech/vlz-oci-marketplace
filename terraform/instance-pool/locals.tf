@@ -1,8 +1,13 @@
 locals {
+  media_num_of_instances = (var.env_size == "Small" || var.env_size == "Medium") ? 2 : 4
+  media_num_of_ocpus = (var.env_size == "Small") ? 8 : 16
+
+  app_num_of_ocpus = (var.env_size == "Small") ? 8 : var.env_size == "Medium" ? 16 : 32
+  
   num_of_subnets          = length(var.subnet_cidr_block_list)
-  num_of_instance_pools   = var.media_num_of_instances == 0 ? 0 : (var.media_num_of_instances == 1 ? 1 : local.num_of_subnets)
-  base_instances_per_pool = var.media_num_of_instances == 0 ? 0 : floor(var.media_num_of_instances / local.num_of_instance_pools)
-  extra_instances         = var.media_num_of_instances % local.num_of_instance_pools
+  num_of_instance_pools   = local.media_num_of_instances == 0 ? 0 : (local.media_num_of_instances == 1 ? 1 : local.num_of_subnets)
+  base_instances_per_pool = local.media_num_of_instances == 0 ? 0 : floor(local.media_num_of_instances / local.num_of_instance_pools)
+  extra_instances         = local.media_num_of_instances % local.num_of_instance_pools
 
   instances_per_pool_list = [
     for i in range(local.num_of_instance_pools) :
@@ -18,4 +23,6 @@ locals {
   secondary_vlan_id        = length(var.subnet_cidr_block_list) > 1 && length(data.oci_core_vnic_attachments.app_vnic2_attachments) > 0 ? lookup(data.oci_core_vnic_attachments.app_vnic2_attachments[0].vnic_attachments[0], "vlan_tag") : null
 
   fault_domains = length(var.fault_domains) > 0 ? var.fault_domains : null
+
+  
 }

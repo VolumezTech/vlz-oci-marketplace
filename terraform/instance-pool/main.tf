@@ -95,7 +95,7 @@ resource "oci_core_instance_configuration" "media_instance_configuration" {
         for_each = var.media_ignore_cpu_mem_req ? [] : [1]
         content {
           memory_in_gbs = var.media_memory_in_gbs
-          ocpus         = var.media_num_of_ocpus
+          ocpus         = local.media_num_of_instances
         }
       }
 
@@ -117,7 +117,6 @@ resource "oci_core_instance_configuration" "media_instance_configuration" {
 }
 
 resource "oci_core_instance_pool" "media_instance_pool" {
-  #for_each = zipmap(range(local.num_of_subnets), oci_core_subnet.vlz_subnet.*.id)
   count = local.num_of_instance_pools
 
   compartment_id            = var.tenancy_ocid
@@ -153,7 +152,7 @@ resource "oci_core_instance_configuration" "app_instance_configuration" {
         for_each = var.app_ignore_cpu_mem_req ? [] : [1]
         content {
           memory_in_gbs = var.app_memory_in_gbs
-          ocpus         = var.app_num_of_ocpus
+          ocpus         = local.app_num_of_ocpus
         }
       }
 
@@ -219,21 +218,6 @@ resource "oci_core_instance_pool" "app_instance_pool" {
   }
 }
 
-# resource "null_resource" "app_secondary_vnic_coppy_script" {
-#   count = local.secondary_vnic_config
-
-#   depends_on = [ oci_core_instance_pool.app_instance_pool ]
-#   provisioner "file" {
-#     source = "${path.module}/cloudinit/secondary_vnic_all_configure.sh"
-#     destination = "/tmp/secondary_vnic_config.sh"
-#   }
-#   connection {
-#     type        = "ssh"
-#     host        = data.oci_core_instance.app_instance.public_ip
-#     user        = "ubuntu"
-#     private_key = tls_private_key.ssh_key.private_key_pem
-#   }
-# }
 
 resource "null_resource" "app_secondary_vnic_exec" {
   count = local.secondary_vnic_config
@@ -242,9 +226,6 @@ resource "null_resource" "app_secondary_vnic_exec" {
 
   provisioner "remote-exec" {
     inline = [
-      #"chmod +x /tmp/secondary_vnic_config.sh",
-      #"sudo /tmp/secondary_vnic_config.sh -c /tmp/secondary_vnic_config.sh > /tmp/debug.log 2>&1",
-      #"sudo /tmp/secondary_vnic_config.sh -c ${lookup(data.oci_core_private_ips.app_vnic2_ip.private_ips[0], "id")} > /tmp/debug.log 2>&1",
       "sudo ip link set dev ens340np0 mtu 9000",
       "sudo ip link add link ens340np0 ens340np0.${local.secondary_vlan_id} address ${local.secondary_mac_address} type macvlan",
       "sudo ip link add link ens340np0.${local.secondary_vlan_id} name ens340np0v${local.secondary_vlan_id} type vlan id ${local.secondary_vlan_id}",

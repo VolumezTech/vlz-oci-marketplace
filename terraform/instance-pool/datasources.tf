@@ -73,13 +73,13 @@ data "oci_core_private_ips" "app_vnic2_ip" {
 
 data "oci_core_instance_pool_instances" "media_pool" {
   depends_on = [oci_core_instance_pool.media_instance_pool]
-  count = var.media_num_of_instances > 0 ? 1 : 0
+  count = local.media_num_of_instances > 0 ? 1 : 0
 
   compartment_id   = var.tenancy_ocid
   instance_pool_id = oci_core_instance_pool.media_instance_pool[0].id
 }
 
 data "oci_core_instance" "media_instance" {
-  count = var.media_num_of_instances > 0 ? 1 : 0
+  count = local.media_num_of_instances > 0 ? 1 : 0
   instance_id = data.oci_core_instance_pool_instances.media_pool[count.index].instances[0].id
 }
