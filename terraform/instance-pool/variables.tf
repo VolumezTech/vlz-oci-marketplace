@@ -70,8 +70,12 @@ variable "vlz_rest_apigw" {
 
 ### Envs Sizes ###
 variable "env_size" {
-  type =list(string)
-  default = ["small", "medium", "large"]
+  type       = string
+  default    = "Small"
+  validation {
+    condition     = contains(["Small", "Medium", "Large"], var.env_size)
+    error_message = "Invalid env_size. Must be one of Small, Medium, Large"
+  }
 }
 
 ### Media ###
