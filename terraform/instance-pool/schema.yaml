@@ -160,7 +160,7 @@ variables:
     default: "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
 
   media_shape:
-    type: oci:core:instanceshape:name	
+    type: string	
     title: Media Shape
     description: The shape to use for media instances.
     default: "VM.DenseIO.E4.Flex"
