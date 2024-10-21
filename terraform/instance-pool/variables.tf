@@ -42,18 +42,18 @@ variable "compartment_ocid" {
   description = "value of the compartment OCID"
 }
 
-variable "config_file_profile" {
-  type        = string
-  description = "Name of the configure profile in ~/.oci/config"
-  default     = "DEFAULT"
-}
+# variable "config_file_profile" {
+#   type        = string
+#   description = "Name of the configure profile in ~/.oci/config"
+#   default     = "DEFAULT"
+# }
 
 ### VLZ ###
 
-variable "vlz_refresh_token" {
-  type        = string
-  description = "VLZ Refresh Token"
-}
+# variable "vlz_refresh_token" {
+#   type        = string
+#   description = "VLZ Refresh Token"
+# }
 
 variable "vlz_s3_path_to_conn" {
   type        = string
