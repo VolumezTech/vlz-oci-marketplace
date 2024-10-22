@@ -160,16 +160,12 @@ variables:
     title: Availability Domain Number
     description: The availability domain number to deploy instances in.
     required: true
-    dependsOn: 
-      region: ${region}
-    default: 1
 
   fault_domains:
     type: oci:identity:faultdomain:name
     title: Fault Domains
     description: A list of fault domains to distribute instances across.
     required: true
-    default: ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
 
   # Virtual Cloud Network
   subnet_cidr_block_list:
@@ -307,4 +303,6 @@ variables:
 
 # Outputs (add your relevant outputs here)
 outputs:
-  # ... your output definitions ...
+  tls_private_key:
+    title: Generated SSH private key
+    sensitive: true
