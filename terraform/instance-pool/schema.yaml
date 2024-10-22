@@ -191,6 +191,18 @@ variables:
       - Large
     default: "Small"
 
+    # Postgres
+    postgres_version:
+      type: enum
+      title: Postgres Version
+      description: The version of Postgres to install.
+      required: true
+      enum:
+        - "13"
+        - "14"
+        - "15"
+      default: "13"
+
   # # Media Instances
   # media_image_id:
   #   type: string

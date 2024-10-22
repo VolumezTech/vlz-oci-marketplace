@@ -170,3 +170,15 @@ variable "app_use_placement_group" {
   description = "Use Cluster Placement Group or not"
   default     = false
 }
+
+### Postgres ###
+variable "postgres_version" {
+  type        = string
+  description = "Postgres Version"
+  default     = "13"
+  validation {
+    condition     = contains(["13", "14", "15"], var.postgres_version)
+    error_message = "Invalid Postgres Version. Must be one of 13, 14, 15"
+  }
+  
+}
