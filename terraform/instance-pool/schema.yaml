@@ -160,6 +160,8 @@ variables:
     title: Availability Domain Number
     description: The availability domain number to deploy instances in.
     required: true
+    dependsOn: 
+      region: ${region}
     default: 1
 
   fault_domains:
