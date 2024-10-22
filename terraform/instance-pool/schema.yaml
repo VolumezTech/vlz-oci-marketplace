@@ -157,7 +157,7 @@ variables:
     title: Fault Domains
     description: A list of fault domains to distribute instances across.
     required: true
-    default: []
+    default: [""]
 
   # Virtual Cloud Network
   subnet_cidr_block_list:
@@ -193,17 +193,17 @@ variables:
       - Large
     default: "Small"
 
-    # Postgres
-    postgres_version:
-      type: enum
-      title: Postgres Version
-      description: The version of Postgres to install.
-      required: true
-      enum:
-        - 13
-        - 14
-        - 15
-      default: "13"
+  # Postgres
+  postgres_version:
+    type: enum
+    title: Postgres Version
+    description: The version of Postgres to install.
+    required: true
+    enum:
+      - 13
+      - 14
+      - 15
+    default: "13"
 
   # # Media Instances
   # media_image_id:

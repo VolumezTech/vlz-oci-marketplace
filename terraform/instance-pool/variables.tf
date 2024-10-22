@@ -30,7 +30,7 @@ variable "ad_number" {
 variable "fault_domains" {
   type        = list(string)
   description = "Fault Domains"
-  default = []
+  default = [""]
 }
 
 variable "subnet_cidr_block_list" {
