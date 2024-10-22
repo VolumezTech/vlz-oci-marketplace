@@ -52,6 +52,7 @@ variableGroups:
     variables:
       - email
       - password
+      - ssh_public_key
 
   - title: "Region and Availability"
     variables:
@@ -111,6 +112,12 @@ variables:
     title: Password
     description: Your password.
     required: true
+
+  ssh_public_key:
+    type: oci:core:ssh:publickey
+    title: SSH Public Key
+    description: Your SSH public key.
+    required: false
 
   tenancy_ocid:
     type: string

@@ -10,6 +10,12 @@ variable "password" {
   
 }
 
+variable "ssh_public_key" {
+  type        = string
+  description = "SSH Public Key"
+  
+}
+
 variable "region" {
   type    = string
   default = "us-ashburn-1"
