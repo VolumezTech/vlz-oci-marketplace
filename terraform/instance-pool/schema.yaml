@@ -143,19 +143,21 @@ variables:
     type: oci:identity:region:name
     title: Region
     description: The OCI region to deploy resources into.
-    default: "us-chicago-1"
+    default: "us-ashburn-1"
 
   ad_number:
     type: number
     title: Availability Domain Number
     description: The availability domain number to deploy instances in.
     required: true
+    default: 1
 
   fault_domains:
     type: list(string)
     title: Fault Domains
     description: A list of fault domains to distribute instances across.
     required: true
+    default: []
 
   # Virtual Cloud Network
   subnet_cidr_block_list:
