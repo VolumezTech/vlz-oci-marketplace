@@ -153,7 +153,7 @@ variables:
     type: oci:identity:region:name
     title: Region
     description: The OCI region to deploy resources into.
-    default: "us-ashburn-1"
+    default: "us-chicago-1"
 
   ad_number:
     type: number
