@@ -52,7 +52,13 @@ variableGroups:
     variables:
       - email
       - password
+
+  - title: "SSH Public Key"
+    visible: true
+    variables:
+      - generate_public_ssh_key
       - ssh_public_key
+      
 
   - title: "Region and Availability"
     variables:
@@ -98,8 +104,7 @@ variableGroups:
   #     - app_use_placement_group
 
 variables:
-
-  # Hidden Variables 
+# Login Credentials
   email:
     type: string
     title: Email
@@ -113,12 +118,24 @@ variables:
     description: Your password.
     required: true
 
+#SSH Public Key
+  generate_public_ssh_key:
+    type: boolean
+    title: "Auto-generate public ssh key?"
+    description: "Auto-generate a public key and assign to the compute instances. Uncheck to provide your own public key or leave blank not to use any attach any key to the compute instance."
+    required: false
+
   ssh_public_key:
-    type: oci:core:ssh:publickey
+    type: oci:core:ssh:publicKey
     title: SSH Public Key
     description: Your SSH public key.
     required: false
+    visible:
+      and:
+        - not:
+          - generate_public_ssh_key
 
+# OCI Configuration
   tenancy_ocid:
     type: string
     title: Tenancy OCID
@@ -130,13 +147,6 @@ variables:
     title: Compartment OCID
     description: The OCID of the compartment to deploy resources into.
     required: true
-
-  # config_file_profile:
-  #   type: string
-  #   title: OCI Config Profile
-  #   description: The name of the profile to use in your OCI config file.
-  #   default: "DEFAULT"
-
 
   # Region and Availability
   region:
