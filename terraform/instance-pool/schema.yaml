@@ -200,9 +200,9 @@ variables:
       description: The version of Postgres to install.
       required: true
       enum:
-        - "13"
-        - "14"
-        - "15"
+        - 13
+        - 14
+        - 15
       default: "13"
 
   # # Media Instances
