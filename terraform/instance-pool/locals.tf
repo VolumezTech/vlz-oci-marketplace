@@ -3,7 +3,7 @@ locals {
   media_num_of_ocpus = (var.env_size == "Small") ? 8 : 16
 
   app_num_of_ocpus = (var.env_size == "Small") ? 8 : var.env_size == "Medium" ? 16 : 32
-  
+
   num_of_subnets          = length(var.subnet_cidr_block_list)
   num_of_instance_pools   = local.media_num_of_instances == 0 ? 0 : (local.media_num_of_instances == 1 ? 1 : local.num_of_subnets)
   base_instances_per_pool = local.media_num_of_instances == 0 ? 0 : floor(local.media_num_of_instances / local.num_of_instance_pools)
