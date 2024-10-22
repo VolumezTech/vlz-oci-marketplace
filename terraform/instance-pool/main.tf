@@ -94,8 +94,8 @@ resource "oci_core_instance_configuration" "media_instance_configuration" {
       dynamic "shape_config" {
         for_each = var.media_ignore_cpu_mem_req ? [] : [1]
         content {
-          memory_in_gbs = var.media_memory_in_gbs
-          ocpus         = local.media_num_of_instances
+          # memory_in_gbs = var.media_memory_in_gbs
+          ocpus         = local.media_num_of_ocpus
         }
       }
 
