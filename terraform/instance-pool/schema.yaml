@@ -156,14 +156,14 @@ variables:
     default: "us-ashburn-1"
 
   ad_number:
-    type: number
+    type: oci:identity:availabilitydomain:name
     title: Availability Domain Number
     description: The availability domain number to deploy instances in.
     required: true
     default: 1
 
   fault_domains:
-    type: list(string)
+    type: oci:identity:faultdomain:name
     title: Fault Domains
     description: A list of fault domains to distribute instances across.
     required: true
