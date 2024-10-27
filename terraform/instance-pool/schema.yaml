@@ -71,17 +71,18 @@ variableGroups:
   #   variables:
   #     - subnet_cidr_block_list
 
-  - title: "Volumez (VLZ)"
+  - title: "Volumez"
     visible: false
     variables:
       # - vlz_refresh_token
       - vlz_s3_path_to_conn
       - vlz_rest_apigw
 
-  - title: "Environment Size"
+  - title: "Volumez infrastructure Configurations"
     visible: true
     variables:
       - env_size
+      - postgres_version
 
   # - title: "Media Instances"
   #   variables:
@@ -207,7 +208,8 @@ variables:
   # Environment Size
   env_size:
     type: enum
-    title: Environment Size
+    title: VLZ Environment Size
+    # TODO: Add description
     description: Defines configurations for media and app nodes count and shapes.
     required: true
     enum:
@@ -219,8 +221,8 @@ variables:
   # Postgres
   postgres_version:
     type: enum
-    title: Postgres Version
-    description: The version of Postgres to install.
+    title: Postgres Version (App VM)
+    description: This version of Postgres will be installed on application VM.
     required: true
     enum:
       - 13
