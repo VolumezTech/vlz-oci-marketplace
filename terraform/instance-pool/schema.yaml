@@ -137,6 +137,7 @@ variables:
 
 # OCI Configuration
   tenancy_ocid:
+    visible: false
     type: string
     title: Tenancy OCID
     description: The OCID of your tenancy.
@@ -157,6 +158,8 @@ variables:
 
   ad_number:
     type: oci:identity:availabilitydomain:name	
+    dependsOn:
+      compartmentId: compartment_ocid
     title: Availability Domain Number
     description: The availability domain number to deploy instances in.
     required: true
