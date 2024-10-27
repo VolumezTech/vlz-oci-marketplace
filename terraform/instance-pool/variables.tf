@@ -22,7 +22,7 @@ variable "region" {
 }
 
 variable "availability_domain_name" {
-  type        = number
+  type        = string
   description = "Availability Domain Number"
 }
 
