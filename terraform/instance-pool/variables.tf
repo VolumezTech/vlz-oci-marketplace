@@ -26,6 +26,13 @@ variable "availability_domain_name" {
   description = "Availability Domain Number"
 }
 
+variable "ad_number" {
+  type        = number
+  description = "Availability Domain Number"
+  default     = 1
+  
+}
+
 variable "fault_domains" {
   type        = list(string)
   description = "Fault Domains"

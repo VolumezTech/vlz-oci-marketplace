@@ -1,4 +1,6 @@
 locals {
+  availability_domain = var.availability_domain_name != "" ? var.availability_domain_name: data.oci_identity_availability_domain.ad.name
+
   media_num_of_instances = (var.env_size == "Small" || var.env_size == "Medium") ? 2 : 4
   media_num_of_ocpus = (var.env_size == "Small") ? 8 : 16
 
