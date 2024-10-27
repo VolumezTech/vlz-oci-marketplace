@@ -47,6 +47,12 @@ variableGroups:
       - tenancy_ocid
       - compartment_ocid
 
+  - title: "Placement"
+    variables:
+      - region
+      - ad_number
+      - fault_domains
+
   - title: "Login Credentials"
     visible: true
     variables:
@@ -58,13 +64,6 @@ variableGroups:
     variables:
       - generate_public_ssh_key
       - ssh_public_key
-      
-
-  - title: "Region and Availability"
-    variables:
-      - region
-      - ad_number
-      - fault_domains
 
   # - title: "Virtual Cloud Network"
   #   visible: false
@@ -151,27 +150,27 @@ variables:
 
   # Region and Availability
   region:
+    visible: false
     type: oci:identity:region:name
     title: Region
     description: The OCI region to deploy resources into.
-    default: "us-chicago-1"
 
   ad_number:
     type: oci:identity:availabilitydomain:name	
     dependsOn:
       compartmentId: compartment_ocid
-      region: region
     title: Availability Domain Number
     description: The availability domain number to deploy instances in.
     required: true
     default: 1
 
   fault_domains:
-    type: string
+    type: oci:identity:faultdomain:name
+    dependsOn:
+      compartmentId: compartment_ocid
     title: Fault Domains
     description: A list of fault domains to distribute instances across.
     required: true
-    default: "[]"
 
   # Virtual Cloud Network
   subnet_cidr_block_list:
