@@ -95,7 +95,7 @@ variable "env_size" {
 variable "media_image_id" {
   type        = string
   description = "Image OCID"
-  default = "ocid1.image.oc1.phx.aaaaaaaajxeqzy3z5qwcwtksj76ymu5gxt24qbv22r7lzukux7dbfugdwyka"
+  default = "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
 }
 
 variable "media_shape" {
@@ -139,7 +139,7 @@ variable "media_use_placement_group" {
 variable "app_image_id" {
   type        = string
   description = "Image OCID"
-  default = "ocid1.image.oc1.phx.aaaaaaaajxeqzy3z5qwcwtksj76ymu5gxt24qbv22r7lzukux7dbfugdwyka"
+  default = "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
 }
 
 variable "app_shape" {
