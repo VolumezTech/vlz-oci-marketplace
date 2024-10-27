@@ -51,6 +51,7 @@ variableGroups:
     variables:
       - region
       - availability_domain_name
+      - ad_number
       - fault_domains
 
   - title: "Login Credentials"
@@ -162,6 +163,14 @@ variables:
       compartmentId: compartment_ocid
     title: Availability Domain Name
     description: The availability domain to deploy instances in.
+    required: true
+    default: 1
+
+  ad_number:
+    visible: false
+    type: number
+    title: Availability Domain Number
+    description: The number of availability domains to deploy instances in.
     required: true
     default: 1
 
