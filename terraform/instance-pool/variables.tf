@@ -95,7 +95,7 @@ variable "env_size" {
 variable "media_image_id" {
   type        = string
   description = "Image OCID"
-  default = "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
+  default = "ocid1.image.oc1.iad.aaaaaaaahpxkae72yjmwf4z277z2kydw2s4snn2tafychp2n2jx2yqmyjl3q"
 }
 
 variable "media_shape" {
