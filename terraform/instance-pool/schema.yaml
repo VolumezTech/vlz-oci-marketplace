@@ -51,7 +51,7 @@ variableGroups:
     variables:
       - region
       - ad_number
-      # - fault_domains
+      - fault_domains
 
   - title: "Login Credentials"
     visible: true
@@ -165,14 +165,13 @@ variables:
     required: true
     default: 1
 
-  # fault_domains:
-  #   type: list(string)
-  #   # dependsOn:
-  #   #   compartmentId: compartment_ocid
-  #   title: Fault Domains
-  #   description: A list of fault domains to distribute instances across.
-  #   required: true
-  #   default: ["FAULT-DOMAIN-1, FAULT-DOMAIN-2, FAULT-DOMAIN-3"]
+  fault_domains:
+    type: list(string)
+    # dependsOn:
+    #   compartmentId: compartment_ocid
+    title: Fault Domains
+    description: A list of fault domains to distribute instances across.
+    required: true
 
   # Virtual Cloud Network
   subnet_cidr_block_list:
