@@ -160,6 +160,7 @@ variables:
     type: oci:identity:availabilitydomain:name	
     dependsOn:
       compartmentId: compartment_ocid
+      region: region
     title: Availability Domain Number
     description: The availability domain number to deploy instances in.
     required: true
