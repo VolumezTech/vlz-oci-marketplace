@@ -51,7 +51,7 @@ variableGroups:
     variables:
       - region
       - ad_number
-      - fault_domains
+      # - fault_domains
 
   - title: "Login Credentials"
     visible: true
@@ -114,8 +114,9 @@ variables:
     type: password
     confirmation: true
     title: Password
-    description: Your password.
+    description: "The password must be more than 8 characters and include at least one uppercase letter, one lowercase letter, one number, and one of the following special characters: @#%^*_+-:?.,[]{}"
     required: true
+    pattern: "^(?=.*[!@#%^*_+\\-:?.,\\[\\]\\{\\}])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*[$\\(\\)]).{8,32}$"
 
 #SSH Public Key
   generate_public_ssh_key:
@@ -164,14 +165,14 @@ variables:
     required: true
     default: 1
 
-  fault_domains:
-    type: list(string)
-    # dependsOn:
-    #   compartmentId: compartment_ocid
-    title: Fault Domains
-    description: A list of fault domains to distribute instances across.
-    required: true
-    default: ["FAULT-DOMAIN-1, FAULT-DOMAIN-2, FAULT-DOMAIN-3"]
+  # fault_domains:
+  #   type: list(string)
+  #   # dependsOn:
+  #   #   compartmentId: compartment_ocid
+  #   title: Fault Domains
+  #   description: A list of fault domains to distribute instances across.
+  #   required: true
+  #   default: ["FAULT-DOMAIN-1, FAULT-DOMAIN-2, FAULT-DOMAIN-3"]
 
   # Virtual Cloud Network
   subnet_cidr_block_list:
