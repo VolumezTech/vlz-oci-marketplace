@@ -21,10 +21,9 @@ variable "region" {
   default = "us-ashburn-1"
 }
 
-variable "ad_number" {
+variable "availability_domain_name" {
   type        = number
   description = "Availability Domain Number"
-  default     = 1
 }
 
 variable "fault_domains" {

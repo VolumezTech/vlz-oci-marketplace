@@ -56,7 +56,7 @@ resource "oci_core_route_table" "vlz_route_table" {
 resource "oci_core_subnet" "vlz_subnet" {
   count = length(var.subnet_cidr_block_list)
 
-  availability_domain = data.oci_identity_availability_domain.ad.name
+  availability_domain = var.availability_domain_name
   cidr_block          = var.subnet_cidr_block_list[count.index]
   display_name        = "VlzSubnet-${count.index}-${random_string.deploy_id.result}"
   dns_label           = "vlzsubnet${count.index}"
@@ -70,7 +70,7 @@ resource "oci_core_subnet" "vlz_subnet" {
 resource "oci_cluster_placement_groups_cluster_placement_group" "vlz_cluster_pg" {
   count = local.num_of_pgs
 
-  availability_domain          = data.oci_identity_availability_domain.ad.name
+  availability_domain          = var.availability_domain_name
   cluster_placement_group_type = "STANDARD"
   compartment_id               = var.tenancy_ocid
   description                  = "bla"
@@ -124,7 +124,7 @@ resource "oci_core_instance_pool" "media_instance_pool" {
   display_name              = format("media-instance-pool-${random_string.deploy_id.result}-%s", count.index)
   
   placement_configurations {
-    availability_domain = data.oci_identity_availability_domain.ad.name
+    availability_domain = var.availability_domain_name
     primary_subnet_id   = oci_core_subnet.vlz_subnet[count.index].id
     fault_domains       = local.fault_domains
   }
@@ -200,7 +200,7 @@ resource "oci_core_instance_pool" "app_instance_pool" {
   instance_configuration_id = oci_core_instance_configuration.app_instance_configuration.id
   display_name              = "app-instance-pool-${random_string.deploy_id.result}"
   placement_configurations {
-    availability_domain = data.oci_identity_availability_domain.ad.name
+    availability_domain = var.availability_domain_name
     primary_subnet_id   = oci_core_subnet.vlz_subnet[0].id
     fault_domains       = local.fault_domains
     dynamic "secondary_vnic_subnets" {

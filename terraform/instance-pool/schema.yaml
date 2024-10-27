@@ -50,7 +50,7 @@ variableGroups:
   - title: "Placement"
     variables:
       - region
-      - ad_number
+      - availability_domain_name
       - fault_domains
 
   - title: "Login Credentials"
@@ -156,12 +156,12 @@ variables:
     title: Region
     description: The OCI region to deploy resources into.
 
-  ad_number:
+  availability_domain_name:
     type: oci:identity:availabilitydomain:name	
     dependsOn:
       compartmentId: compartment_ocid
-    title: Availability Domain Number
-    description: The availability domain number to deploy instances in.
+    title: Availability Domain Name
+    description: The availability domain to deploy instances in.
     required: true
     default: 1
 
