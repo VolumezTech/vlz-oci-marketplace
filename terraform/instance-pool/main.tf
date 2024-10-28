@@ -244,12 +244,7 @@ resource "null_resource" "app_secondary_vnic_exec" {
 
 resource "null_resource" "run_python_script" {
   provisioner "local-exec" {
-    inline = [
-      "#!/bin/bash",
-      "sudo apt-get update",
-      "sudo apt-get install -y python3",
-      "python3 ${path.module}/your_script.py"
-    ]
+    command = "python cloudinit/hello.py"
   }
 
   depends_on = [
