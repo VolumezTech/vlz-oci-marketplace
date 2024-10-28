@@ -40,8 +40,8 @@ def put_request(endpoint, data):
 # Example usage
 
 # GET request
-def get_user(user_id):
-    endpoint = f"users/{user_id}"
+def get_nodes():
+    endpoint = f"nodes"
     return get_request(endpoint)
 
 # POST request
@@ -57,21 +57,5 @@ def update_user(user_id, user_data):
 # Main execution
 if __name__ == "__main__":
     # Example GET request
-    user_info = get_user(123)
-    print("GET User Info:", user_info)
-
-    # Example POST request
-    new_user = {
-        "name": "John Doe",
-        "email": "john.doe@example.com",
-        "age": 30
-    }
-    created_user = create_user(new_user)
-    print("POST Created User:", created_user)
-
-    # Example PUT request
-    update_data = {
-        "age": 31
-    }
-    updated_user = update_user(123, update_data)
-    print("PUT Updated User:", updated_user)
+    nodes = get_nodes()
+    print("GET Nodes Info:", nodes)
