@@ -241,3 +241,14 @@ resource "null_resource" "app_secondary_vnic_exec" {
     }
   }
 }
+
+resource "null_resource" "run_python_script" {
+  provisioner "local-exec" {
+    command = "hello.py"
+  }
+
+  depends_on = [
+    oci_core_instance_pool.app_instance_pool,
+    oci_core_instance_pool.media_instance_pool
+  ]
+}
