@@ -6,6 +6,7 @@ data "oci_core_images" "ubuntu_24_04" {
   compartment_id           = var.compartment_ocid
   operating_system         = "Canonical Ubuntu"
   operating_system_version = "24.04"
+  shape                    = var.media_shape
   sort_by                  = "TIMECREATED"
   sort_order               = "DESC"
 }
