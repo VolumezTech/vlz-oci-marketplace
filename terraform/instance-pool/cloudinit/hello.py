@@ -48,6 +48,15 @@ def wait_for_nodes_online(base_url, token, max_retries=40, retry_interval=10):
     print("nodes did not come online")
     exit(1)
     
+def get_media(base_url, token):
+    endpoint = "media"
+    url = f"{base_url}/{endpoint}"
+    res = get_request(url, token)
+    if res.status_code != 200:
+        print("failed to get media")
+        return
+    return res
+    
 def assign(base_url, media_id, token):
     endpoint = "media"
     url = f"{base_url}/{endpoint}/{media_id}/assign"
@@ -56,6 +65,31 @@ def assign(base_url, media_id, token):
         print("failed to assign")
     else:
         print(f"{media_id} assigning, jobId={res.text}")
+        
+def assign_all(base_url, token):
+    endpoint = "media"
+    url = f"{base_url}/{endpoint}"
+    res = get_request(url, token)
+    if res.status_code != 200:
+        print("failed to get media")
+        return
+    media = json.loads(res.text)
+    for m in media:
+        if m["state"] == "free" and m["type"] == "SSD":
+            assign(base_url, m["id"], token)
+            
+def wait_for_media_assigned(base_url, token, max_retries=40, retry_interval=10):
+    for attempt in range(max_retries):
+        print("waiting for media to be assigned")
+        res = get_media(base_url, token)
+        medias = json.loads(res.text)
+        filtered_medias = [media for media in medias if media["type"] == "SSD"]
+        if all([media["state"] == "assigned" for media in filtered_medias]):
+            print("media are assigned")
+            return
+        time.sleep(retry_interval)
+    print("media did not get assigned")
+    exit(1)
     
 
 
@@ -71,6 +105,8 @@ def main():
     token = res['IdToken'] 
     
     wait_for_nodes_online(OCI_URL, token)
+    assign_all(OCI_URL, token)
+    wait_for_media_assigned(OCI_URL, token)
     
         
 # Main execution
