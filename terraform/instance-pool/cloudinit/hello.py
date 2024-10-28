@@ -9,7 +9,7 @@ AUTH_TOKEN = "eyJraWQiOiJoUEhDVWNDOXVqeHp4eCthUXdHalFDaDlhYVBxVytRR2dBWDhVYWFxNn
 
 # Headers including authorization
 headers = {
-    "Authorization": f"Bearer {AUTH_TOKEN}",
+    "Authorization": f"{AUTH_TOKEN}",
     "Content-Type": "application/json"
 }
 
