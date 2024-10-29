@@ -217,7 +217,27 @@ outputs:
     title: Generated SSH private key
     sensitive: true
 
+  media_instance_pool_name:
+    title: "Media Instance Pool Name"
+
+  media_instance_pool_id:
+    title: "Media Instance Pool ID"
+
+  app_instance_pool_name:
+    title: "Application Instance Pool Name"
+
+  app_instance_pool_id:
+    title: "Application Instance Pool ID"
+
   oci_endpoint:
     title: OCI Endpoint
+    type: link
+
+  username:
+    title: Username
+
+  password:
+    title: Password
+    sensitive: true
 
 

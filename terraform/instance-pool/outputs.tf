@@ -2,13 +2,40 @@ output "tls_private_key" {
   value     = tls_private_key.ssh_key.private_key_pem
   sensitive = true
 }
-output "public-ip-media-instance-pool" {
-  value = { for instance in data.oci_core_instance.media_instance : instance.id => instance.public_ip}
+
+# output "public-ip-media-instance-pool" {
+#   value = { for instance in data.oci_core_instance.media_instance : instance.id => instance.public_ip}
+# }
+# output "public-ip-app-instance-pool" {
+#   value = { for instance in data.oci_core_instance.app_instance : instance.id => instance.public_ip }
+# }
+
+output "media_instance_pool_name" {
+  value = oci_core_instance_pool.media_instance_pool.display_name
 }
-output "public-ip-app-instance-pool" {
-  value = { for instance in data.oci_core_instance.app_instance : instance.id => instance.public_ip }
+
+output "media_instance_pool_id" {
+  value = oci_core_instance_pool.media_instance_pool.id
+}
+
+output "app_instance_pool_name" {
+  value = oci_core_instance_pool.app_instance_pool.display_name
+}
+
+output "app_instance_pool_id" {
+  value = oci_core_instance_pool.app_instance_pool.id
 }
 
 output "oci_endpoint" {
-  value = var.vlz_rest_apigw
+  value = "https://oci.volumez.com/app#/pages/signin"
 }
+
+output "username" {
+  value = var.email
+}
+
+output "password" {
+  value = var.password
+  sensitive = true
+}
+
