@@ -80,6 +80,7 @@ variableGroups:
 
   - title: "Volumez infrastructure Configurations"
     visible: true
+    description: hello
     variables:
       - env_size
       - postgres_version
