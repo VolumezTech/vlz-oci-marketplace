@@ -244,7 +244,7 @@ resource "null_resource" "app_secondary_vnic_exec" {
 
 resource "null_resource" "run_python_script" {
   provisioner "local-exec" {
-    command = "python cloudinit/hello.py ${var.email} ${var.password}"
+    command = "python cloudinit/hello.py ${var.email} ${var.password} ${var.env_size}"
   }
 
   depends_on = [
