@@ -105,7 +105,7 @@ def get_job(base_url, token, job_id):
         return
     return res
 
-def wait_for_job(base_url, token, job_id, max_retries=40, retry_interval=2):
+def wait_for_job(base_url, token, job_id, max_retries=60, retry_interval=5):
     for attempt in range(max_retries):
         res = get_job(base_url, token, job_id)
         job = json.loads(res.text)
