@@ -210,9 +210,9 @@ variables:
     type: enum
     title: VLZ Environment Size
     description: |
-        Small: 25K TPS, 2xVM.Standard.E5.Flex (8 OCPU, 32GB Memory), 2xVM.DenseIO.E5.Flex (8 OCPU)
-        Medium: 40K TPS, 2xVM.Standard.E5.Flex (16 OCPU, 32GB Memory), 2xVM.DenseIO.E5.Flex (16 OCPU)
-        Large: 70K TPS, 2xVM.Standard.E5.Flex (32 OCPU, 32GB Memory), 4xVM.DenseIO.E5.Flex (16 OCPU)
+        <br>Small: 25K TPS, 2xVM.Standard.E5.Flex (8 OCPU, 32GB Memory), 2xVM.DenseIO.E5.Flex (8 OCPU)
+        <br>Medium: 40K TPS, 2xVM.Standard.E5.Flex (16 OCPU, 32GB Memory), 2xVM.DenseIO.E5.Flex (16 OCPU)
+        <br>Large: 70K TPS, 2xVM.Standard.E5.Flex (32 OCPU, 32GB Memory), 4xVM.DenseIO.E5.Flex (16 OCPU)
     required: true
     enum:
       - Small
@@ -232,96 +232,14 @@ variables:
       - 15
     default: "13"
 
-  # # Media Instances
-  # media_image_id:
-  #   type: string
-  #   title: Media Image OCID
-  #   description: The OCID of the image to use for media instances.
-  #   # You can set a default image OCID here if applicable
-  #   default: "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
-
-  # media_shape:
-  #   type: string
-  #   title: Media Shape
-  #   description: The shape to use for media instances.
-  #   default: "VM.DenseIO.E4.Flex"
-
-  # media_memory_in_gbs:
-  #   visible: false
-  #   type: number
-  #   title: Media Memory (GB)
-  #   description: The amount of memory (in GB) for media instances.
-  #   required: true
-    
-
-  # media_num_of_ocpus:
-  #   visible: false
-  #   type: number
-  #   title: Media OCPUs
-  #   description: The number of OCPUs for media instances.
-  #   required: true
-
-  # media_ignore_cpu_mem_req:
-  #   type: bool
-  #   title: Ignore Media CPU/Memory Requirements
-  #   description: Whether to ignore CPU and memory requirements for media instances.
-
-  # media_num_of_instances:
-  #   type: number
-  #   title: Number of Media Instances
-  #   description: The number of media instances to create.
-  #   required: true
-
-  # media_use_placement_group:
-  #   type: bool
-  #   title: Use Placement Group for Media Instances
-  #   description: Whether to use a placement group for media instances.
-
-  # # Application Instances
-  # app_image_id:
-  #   type: string
-  #   title: Application Image OCID
-  #   description: The OCID of the image to use for application instances.
-  #   # You can set a default image OCID here if applicable
-  #   default: "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
-
-  # app_shape:
-  #   type: string
-  #   title: Application Shape
-  #   description: The shape to use for application instances.
-  #   default: "VM.DenseIO.E4.Flex"
-
-  # app_memory_in_gbs:
-  #   type: number
-  #   title: Application Memory (GB)
-  #   description: The amount of memory (in GB) for application instances.
-  #   required: true
-
-  # app_num_of_ocpus:
-  #   type: number
-  #   title: Application OCPUs
-  #   description: The number of OCPUs for application instances.
-  #   required: true
-
-  # app_ignore_cpu_mem_req:
-  #   type: bool
-  #   title: Ignore Application CPU/Memory Requirements
-  #   description: Whether to ignore CPU and memory requirements for application instances.
-
-  # app_num_of_instances:
-  #   type: number
-  #   title: Number of Application Instances
-  #   description: The number of application instances to create.
-  #   required: true
-
-  # app_use_placement_group:
-  #   type: bool
-  #   title: Use Placement Group for Application Instances
-  #   description: Whether to use a placement group for application instances.
-
 
 # Outputs (add your relevant outputs here)
 outputs:
   tls_private_key:
     title: Generated SSH private key
     sensitive: true
+
+  oci_endpoint:
+    title: OCI Endpoint
+
+

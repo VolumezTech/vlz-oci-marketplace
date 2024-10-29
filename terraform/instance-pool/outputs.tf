@@ -11,3 +11,7 @@ output "public-ip-media-instance-pool" {
 output "public-ip-app-instance-pool" {
   value = { for instance in data.oci_core_instance.app_instance : instance.id => instance.public_ip }
 }
+
+output "oci_endpoint" {
+  value = var.vlz_rest_apigw
+}
