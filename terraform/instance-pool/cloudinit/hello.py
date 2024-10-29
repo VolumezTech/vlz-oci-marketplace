@@ -4,6 +4,8 @@ import argparse
 import time
 
 OCI_URL = "https://oci.api.volumez.com"
+VOL_NAME = "vol1"
+
 
 def post_request(url, token, json_payload):
     headers = {'authorization': token} if token else {}
@@ -197,9 +199,8 @@ def main():
     }
     create_policy(OCI_URL, token, policy_body)
     
-    vol_name = "volume1"
     volume_body = {
-        "name": vol_name,
+        "name": VOL_NAME,
         "type": "file",
         "size": 5000 if env_size == "Small" else 15000 if env_size == "Medium" else 20000,
         "policy": env_size,
@@ -208,11 +209,11 @@ def main():
     create_volume(OCI_URL, token, volume_body)
     
     attachment_body = {
-        "volume": vol_name,
+        "volume": VOL_NAME,
         "snapshot": "top",
         "node": app_node["name"],
     }
-    create_attachment(OCI_URL, token, attachment_body, vol_name)
+    create_attachment(OCI_URL, token, attachment_body, VOL_NAME)
     
 if __name__=="__main__":
     main()
