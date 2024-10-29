@@ -257,7 +257,7 @@ resource "null_resource" "install_postgress" {
   count = var.app_num_of_instances
   provisioner "file" {
     source = "cloudinit/install_pg_new.bash"
-    destination = "tmp/install_pg_new.bash"
+    destination = "/tmp/install_pg_new.bash"
 
     connection {
       type        = "ssh"
@@ -269,8 +269,8 @@ resource "null_resource" "install_postgress" {
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x tmp/install_pg_new.bash",
-      "tmp/install_pg_new.bash ${var.postgres_version}"
+      "chmod +x /tmp/install_pg_new.bash",
+      "/tmp/install_pg_new.bash ${var.postgres_version}"
     ]
 
     connection {

@@ -49,9 +49,9 @@ data "oci_core_instance_pool_instances" "app_pool" {
 }
 
 data "oci_core_instance" "app_instance" {
-  count = var.app_num_of_instances > 0 ? 1 : 0
+  count = var.app_num_of_instances
 
-  instance_id = data.oci_core_instance_pool_instances.app_pool[count.index].instances[0].id
+  instance_id = data.oci_core_instance_pool_instances.app_pool[0].instances[count.index].id
 }
 
 data "oci_core_vnic_attachments" "app_vnic2_attachments" {
@@ -89,6 +89,6 @@ data "oci_core_instance_pool_instances" "media_pool" {
 }
 
 data "oci_core_instance" "media_instance" {
-  count = local.media_num_of_instances > 0 ? 1 : 0
-  instance_id = data.oci_core_instance_pool_instances.media_pool[count.index].instances[0].id
+  count = local.media_num_of_instances 
+  instance_id = data.oci_core_instance_pool_instances.media_pool[0].instances[count.index].id
 }
