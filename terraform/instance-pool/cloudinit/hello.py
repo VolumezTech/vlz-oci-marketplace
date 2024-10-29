@@ -4,8 +4,6 @@ import argparse
 import time
 
 OCI_URL = "https://oci.api.volumez.com"
-VOL_NAME = "vol1"
-
 
 def post_request(url, token, json_payload):
     headers = {'authorization': token} if token else {}
@@ -42,6 +40,7 @@ def wait_for_nodes_online(base_url, token, max_retries=40, retry_interval=10):
     for attempt in range(max_retries):
         print("waiting for nodes to come online")
         res = get_nodes(base_url, token)
+        print(res.text)
         nodes = json.loads(res.text)
         if all([node["state"] == "online" for node in nodes]):
             print("nodes are online")
@@ -199,8 +198,9 @@ def main():
     }
     create_policy(OCI_URL, token, policy_body)
     
+    vol_name = "volume1"
     volume_body = {
-        "name": VOL_NAME,
+        "name": vol_name,
         "type": "file",
         "size": 5000 if env_size == "Small" else 15000 if env_size == "Medium" else 20000,
         "policy": env_size,
@@ -209,11 +209,11 @@ def main():
     create_volume(OCI_URL, token, volume_body)
     
     attachment_body = {
-        "volume": VOL_NAME,
+        "volume": vol_name,
         "snapshot": "top",
         "node": app_node["name"],
     }
-    create_attachment(OCI_URL, token, attachment_body, VOL_NAME)
+    create_attachment(OCI_URL, token, attachment_body, vol_name)
     
 if __name__=="__main__":
     main()
