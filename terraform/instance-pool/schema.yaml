@@ -61,7 +61,6 @@ variableGroups:
       - password
 
   - title: "SSH Public Key"
-    visible: true
     variables:
       - generate_public_ssh_key
       - ssh_public_key
@@ -102,6 +101,7 @@ variables:
 
 #SSH Public Key
   generate_public_ssh_key:
+    visible: false
     type: boolean
     title: "Auto-generate public ssh key?"
     description: "Auto-generate a public key and assign to the compute instances. Uncheck to provide your own public key or leave blank not to use any attach any key to the compute instance."
