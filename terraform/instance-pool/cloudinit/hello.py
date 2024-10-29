@@ -40,8 +40,11 @@ def wait_for_nodes_online(base_url, token, max_retries=40, retry_interval=10):
     for attempt in range(max_retries):
         print("waiting for nodes to come online")
         res = get_nodes(base_url, token)
-        print(res.text)
         nodes = json.loads(res.text)
+        if nodes == []:
+            print("no nodes found")
+            time.sleep(retry_interval)
+            continue
         if all([node["state"] == "online" for node in nodes]):
             print("nodes are online")
             return
@@ -168,6 +171,7 @@ def main():
     env_size = args.envSize
 
     wait_for_nodes_online(OCI_URL, token)
+    exit(0)
     assign_all(OCI_URL, token)
     wait_for_media_assigned(OCI_URL, token)
     
