@@ -209,10 +209,10 @@ variables:
   env_size:
     type: enum
     title: VLZ Environment Size
-    description: >
-        "Small: 25K TPS, 2xVM.Standard.E5.Flex (8 OCPU, 32GB Memory), 2xVM.DenseIO.E5.Flex (8 OCPU).\n
-        Medium: 40K TPS, 2xVM.Standard.E5.Flex (16 OCPU, 32GB Memory), 2xVM.DenseIO.E5.Flex (16 OCPU).\n
-        Large: 70K TPS, 2xVM.Standard.E5.Flex (32 OCPU, 32GB Memory), 4xVM.DenseIO.E5.Flex (16 OCPU).\n"
+    description: >+
+        Small: 25K TPS, 2xVM.Standard.E5.Flex (8 OCPU, 32GB Memory), 2xVM.DenseIO.E5.Flex (8 OCPU)\n
+        Medium: 40K TPS, 2xVM.Standard.E5.Flex (16 OCPU, 32GB Memory), 2xVM.DenseIO.E5.Flex (16 OCPU)\n
+        Large: 70K TPS, 2xVM.Standard.E5.Flex (32 OCPU, 32GB Memory), 4xVM.DenseIO.E5.Flex (16 OCPU)\n
     required: true
     enum:
       - Small
