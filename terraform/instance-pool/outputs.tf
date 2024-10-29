@@ -11,19 +11,19 @@ output "tls_private_key" {
 # }
 
 output "media_instance_pool_name" {
-  value = oci_core_instance_pool.media_instance_pool.display_name
+  value = oci_core_instance_pool.media_instance_pool[0].display_name
 }
 
 output "media_instance_pool_id" {
-  value = oci_core_instance_pool.media_instance_pool.id
+  value = oci_core_instance_pool.media_instance_pool[0].id
 }
 
 output "app_instance_pool_name" {
-  value = oci_core_instance_pool.app_instance_pool.display_name
+  value = oci_core_instance_pool.app_instance_pool[0].display_name
 }
 
 output "app_instance_pool_id" {
-  value = oci_core_instance_pool.app_instance_pool.id
+  value = oci_core_instance_pool.app_instance_pool[0].id
 }
 
 output "oci_endpoint" {
