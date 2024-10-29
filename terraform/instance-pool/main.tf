@@ -254,6 +254,7 @@ resource "null_resource" "run_python_script" {
 }
 
 resource "null_resource" "install_postgress" {
+  count = var.app_num_of_instances
   provisioner "file" {
     source = "cloudinit/install_pg_new.bash"
     destination = "tmp/install_pg_new.bash"
