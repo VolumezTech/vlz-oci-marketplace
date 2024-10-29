@@ -61,7 +61,7 @@ variableGroups:
       - password
 
   - title: "SSH Public Key"
-    visible: false
+    visible: true
     variables:
       - generate_public_ssh_key
       - ssh_public_key
@@ -83,26 +83,6 @@ variableGroups:
     variables:
       - env_size
       - postgres_version
-
-  # - title: "Media Instances"
-  #   variables:
-  #     - media_image_id
-  #     - media_shape
-  #     - media_memory_in_gbs
-  #     - media_num_of_ocpus
-  #     - media_ignore_cpu_mem_req
-  #     - media_num_of_instances
-  #     - media_use_placement_group
-
-  # - title: "Application Instances"
-  #   variables:
-  #     - app_image_id
-  #     - app_shape
-  #     - app_memory_in_gbs
-  #     - app_num_of_ocpus
-  #     - app_ignore_cpu_mem_req
-  #     - app_num_of_instances
-  #     - app_use_placement_group
 
 variables:
 # Login Credentials
