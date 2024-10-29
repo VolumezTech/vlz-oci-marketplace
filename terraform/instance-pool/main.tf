@@ -280,6 +280,6 @@ resource "null_resource" "install_postgress" {
     }
   }
   
-  depends_on = [ null_resource.run_python_script ]
+  depends_on = [ oci_core_instance_pool.app_instance_pool, null_resource.run_python_script ]
 
 }
