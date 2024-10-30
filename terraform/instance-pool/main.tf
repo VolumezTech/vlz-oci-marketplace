@@ -267,19 +267,19 @@ resource "null_resource" "install_postgress" {
     }
   }
 
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "chmod +x /tmp/install_pg_new.bash",
-  #     "/tmp/install_pg_new.bash ${var.postgres_version}"
-  #   ]
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/install_pg_new.bash",
+      "sudo bash /tmp/install_pg_new.bash ${var.postgres_version}"
+    ]
 
-  #   connection {
-  #     type        = "ssh"
-  #     host        = data.oci_core_instance.app_instance[count.index].public_ip
-  #     user        = "ubuntu"
-  #     private_key = tls_private_key.ssh_key.private_key_pem
-  #   }
-  # }
+    connection {
+      type        = "ssh"
+      host        = data.oci_core_instance.app_instance[count.index].public_ip
+      user        = "ubuntu"
+      private_key = tls_private_key.ssh_key.private_key_pem
+    }
+  }
   
   depends_on = [ oci_core_instance_pool.app_instance_pool, null_resource.run_python_script ]
 
