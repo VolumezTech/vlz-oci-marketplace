@@ -10,11 +10,17 @@ variable "password" {
   
 }
 
-# variable "ssh_public_key" {
-#   type        = string
-#   description = "SSH Public Key"
-  
-# }
+variable "public_ssh_key" {
+  default = ""
+}
+
+variable "generate_public_ssh_key" {
+  default = true
+}
+
+variable "private_ssh_key_path" {
+  default = ""
+}
 
 variable "region" {
   type    = string
@@ -53,19 +59,6 @@ variable "compartment_ocid" {
   type        = string
   description = "value of the compartment OCID"
 }
-
-# variable "config_file_profile" {
-#   type        = string
-#   description = "Name of the configure profile in ~/.oci/config"
-#   default     = "DEFAULT"
-# }
-
-### VLZ ###
-
-# variable "vlz_refresh_token" {
-#   type        = string
-#   description = "VLZ Refresh Token"
-# }
 
 variable "vlz_s3_path_to_conn" {
   type        = string

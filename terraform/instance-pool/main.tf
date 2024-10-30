@@ -22,7 +22,7 @@ resource "random_string" "deploy_id" {
 }
 
 ### SSH
-resource "tls_private_key" "ssh_key" {
+resource "tls_private_key" "public_private_key_pair" {
   algorithm = "RSA"
   rsa_bits  = 2048
 }
@@ -109,7 +109,7 @@ resource "oci_core_instance_configuration" "media_instance_configuration" {
       }
 
       metadata = {
-        ssh_authorized_keys = tls_private_key.ssh_key.public_key_openssh
+        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.public_key_openssh : var.public_ssh_key
         user_data           = data.cloudinit_config.operator.rendered
       }
     }
@@ -175,7 +175,7 @@ resource "oci_core_instance_configuration" "app_instance_configuration" {
       }
 
       metadata = {
-        ssh_authorized_keys = tls_private_key.ssh_key.public_key_openssh
+        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.public_key_openssh : var.public_ssh_key
         user_data           = data.cloudinit_config.operator.rendered
       }
     }
@@ -237,7 +237,7 @@ resource "null_resource" "app_secondary_vnic_exec" {
       type        = "ssh"
       host        = data.oci_core_instance.app_instance[count.index].public_ip
       user        = "ubuntu"
-      private_key = tls_private_key.ssh_key.private_key_pem
+      private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.private_key_pem : file (var.private_ssh_key_path)
     }
   }
 }
@@ -263,7 +263,7 @@ resource "null_resource" "install_postgress" {
       type        = "ssh"
       host        = data.oci_core_instance.app_instance[count.index].public_ip
       user        = "ubuntu"
-      private_key = tls_private_key.ssh_key.private_key_pem
+      private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.private_key_pem : file (var.private_ssh_key_path)
     }
   }
 
@@ -277,7 +277,7 @@ resource "null_resource" "install_postgress" {
       type        = "ssh"
       host        = data.oci_core_instance.app_instance[count.index].public_ip
       user        = "ubuntu"
-      private_key = tls_private_key.ssh_key.private_key_pem
+      private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.private_key_pem : file (var.private_ssh_key_path)
     }
   }
   
