@@ -229,6 +229,12 @@ outputs:
   app_instance_pool_id:
     title: "Application Instance Pool ID"
 
+  public-ip-app-instances:
+    title: "Public IP App Instances"
+
+  public-ip-media-instances:
+    title: "Public IP Media Instances"
+
   oci_endpoint:
     title: OCI Endpoint
     type: link
