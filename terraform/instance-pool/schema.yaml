@@ -212,6 +212,30 @@ variables:
 
 
 # Outputs (add your relevant outputs here)
+outputGroups:
+  - title: Media Nodes
+    outputs: 
+      - media_instance_pool_name
+      - media_instance_pool_id
+      - public-ip-media-instances
+  
+  - title: Application Nodes
+    outputs: 
+      - app_instance_pool_name
+      - app_instance_pool_id
+      - public-ip-app-instances
+
+  - title: VLZ Endpoint
+    outputs: 
+      - oci_endpoint
+      - username
+      - password
+
+  - title: SSH
+    outputs: 
+      - tls_private_key
+
+
 outputs:
   tls_private_key:
     title: Generated SSH private key
@@ -230,13 +254,15 @@ outputs:
     title: "Application Instance Pool ID"
 
   public-ip-app-instances:
-    title: "Public IP App Instances"
+    title: "Application Instances Public IP"
+    type: csv
 
   public-ip-media-instances:
-    title: "Public IP Media Instances"
+    title: "Media Instances Public IP"
+    type: csv
 
   oci_endpoint:
-    title: OCI Endpoint
+    title: VLZ-OCI Endpoint
     type: link
 
   username:
