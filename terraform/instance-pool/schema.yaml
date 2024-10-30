@@ -255,11 +255,11 @@ outputs:
 
   public-ip-app-instances:
     title: "Application Instances Public IP"
-    type: csv
+    type: list
 
   public-ip-media-instances:
     title: "Media Instances Public IP"
-    type: csv
+    type: list
 
   oci_endpoint:
     title: VLZ-OCI Endpoint
