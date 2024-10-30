@@ -18,10 +18,6 @@ variable "generate_public_ssh_key" {
   default = true
 }
 
-variable "private_ssh_key_path" {
-  default = ""
-}
-
 variable "region" {
   type    = string
   default = "us-ashburn-1"
