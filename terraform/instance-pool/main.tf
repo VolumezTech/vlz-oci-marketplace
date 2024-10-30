@@ -27,6 +27,25 @@ resource "tls_private_key" "public_private_key_pair" {
   rsa_bits  = 2048
 }
 
+data "template_file" "key_script" {
+  template = file("cloudinit/sshkey.tpl")
+  vars = {
+    ssh_public_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.public_key_openssh : var.public_ssh_key
+  }
+}
+
+data "template_cloudinit_config" "cloud_init" {
+
+  gzip          = true
+  base64_encode = true
+
+  part {
+    filename     = "ainit.sh"
+    content_type = "text/x-shellscript"
+    content      = data.template_file.key_script.rendered
+  }
+}
+
 ### Network
 resource "oci_core_vcn" "vlz_vcn" {
   cidr_block     = "10.1.0.0/16"
