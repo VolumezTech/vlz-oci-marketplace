@@ -105,6 +105,7 @@ variables:
     title: "Auto-generate public ssh key?"
     description: "Auto-generate a public key and assign to the compute instances. Uncheck to provide your own public key or leave blank not to use any attach any key to the compute instance."
     required: false
+    default: true
 
   public_ssh_key:
     type: oci:core:ssh:publicKey
