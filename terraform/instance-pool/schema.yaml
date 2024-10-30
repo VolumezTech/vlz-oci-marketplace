@@ -213,6 +213,12 @@ variables:
 
 # Outputs (add your relevant outputs here)
 outputGroups:
+  - title: VLZ Endpoint
+    outputs: 
+      - oci_endpoint
+      - username
+      - password
+      
   - title: Media Nodes
     outputs: 
       - media_instance_pool_name
@@ -224,12 +230,6 @@ outputGroups:
       - app_instance_pool_name
       - app_instance_pool_id
       - public-ip-app-instances
-
-  - title: VLZ Endpoint
-    outputs: 
-      - oci_endpoint
-      - username
-      - password
 
   - title: SSH
     outputs: 
