@@ -23,27 +23,9 @@ resource "random_string" "deploy_id" {
 
 ### SSH
 resource "tls_private_key" "public_private_key_pair" {
+  count     = var.generate_public_ssh_key ? 1 : 0
   algorithm = "RSA"
   rsa_bits  = 2048
-}
-
-data "template_file" "key_script" {
-  template = file("cloudinit/sshkey.tpl")
-  vars = {
-    ssh_public_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.public_key_openssh : var.public_ssh_key
-  }
-}
-
-data "template_cloudinit_config" "cloud_init" {
-
-  gzip          = true
-  base64_encode = true
-
-  part {
-    filename     = "ainit.sh"
-    content_type = "text/x-shellscript"
-    content      = data.template_file.key_script.rendered
-  }
 }
 
 ### Network
@@ -128,7 +110,7 @@ resource "oci_core_instance_configuration" "media_instance_configuration" {
       }
 
       metadata = {
-        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.public_key_openssh : var.public_ssh_key
+        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.*.public_key_openssh : var.public_ssh_key
         user_data           = data.cloudinit_config.operator.rendered
       }
     }
@@ -194,7 +176,7 @@ resource "oci_core_instance_configuration" "app_instance_configuration" {
       }
 
       metadata = {
-        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.public_key_openssh : var.public_ssh_key
+        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.*.public_key_openssh : var.public_ssh_key
         user_data           = data.cloudinit_config.operator.rendered
       }
     }
@@ -256,7 +238,7 @@ resource "null_resource" "app_secondary_vnic_exec" {
       type        = "ssh"
       host        = data.oci_core_instance.app_instance[count.index].public_ip
       user        = "ubuntu"
-      private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.private_key_pem : file (var.private_ssh_key_path)
+      private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.*.private_key_pem : file (var.private_ssh_key_path)
     }
   }
 }
@@ -282,7 +264,7 @@ resource "null_resource" "app_secondary_vnic_exec" {
 #       type        = "ssh"
 #       host        = data.oci_core_instance.app_instance[count.index].public_ip
 #       user        = "ubuntu"
-#       private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.private_key_pem : file (var.private_ssh_key_path)
+#       private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.*.private_key_pem : file (var.private_ssh_key_path)
 #     }
 #   }
 
@@ -296,7 +278,7 @@ resource "null_resource" "app_secondary_vnic_exec" {
 #       type        = "ssh"
 #       host        = data.oci_core_instance.app_instance[count.index].public_ip
 #       user        = "ubuntu"
-#       private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.private_key_pem : file (var.private_ssh_key_path)
+#       private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.*.private_key_pem : file (var.private_ssh_key_path)
 #     }
 #   }
   
