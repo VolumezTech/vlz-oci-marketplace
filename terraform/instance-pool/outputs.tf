@@ -3,12 +3,12 @@ output "tls_private_key" {
   sensitive = true
 }
 
-# output "public-ip-media-instance-pool" {
-#   value = { for instance in data.oci_core_instance.media_instance : instance.id => instance.public_ip}
-# }
-# output "public-ip-app-instance-pool" {
-#   value = { for instance in data.oci_core_instance.app_instance : instance.id => instance.public_ip }
-# }
+output "public-ip-media-instances" {
+  value = [{ for instance in data.oci_core_instance.media_instance : instance.id => instance.public_ip}]
+}
+output "public-ip-app-instances" {
+  value = [{ for instance in data.oci_core_instance.app_instance : instance.id => instance.public_ip }]
+}
 
 output "media_instance_pool_name" {
   value = oci_core_instance_pool.media_instance_pool[0].display_name
