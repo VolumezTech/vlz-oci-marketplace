@@ -1,5 +1,5 @@
 output "tls_private_key" {
-  value     = tls_private_key.public_private_key_pair[0].private_key_pem
+  value     = try(tls_private_key.public_private_key_pair[0].private_key_pem, null)
   sensitive = true
 }
 
