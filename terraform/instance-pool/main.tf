@@ -23,7 +23,6 @@ resource "random_string" "deploy_id" {
 
 ### SSH
 resource "tls_private_key" "public_private_key_pair" {
-  count     = var.generate_public_ssh_key ? 1 : 0
   algorithm = "RSA"
   rsa_bits  = 2048
 }
@@ -110,7 +109,7 @@ resource "oci_core_instance_configuration" "media_instance_configuration" {
       }
 
       metadata = {
-        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair[0].public_key_openssh : var.public_ssh_key
+        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.public_key_openssh : "${tls_private_key.public_private_key_pair.public_key_openssh}\n${var.public_ssh_key}"
         user_data           = data.cloudinit_config.operator.rendered
       }
     }
@@ -176,7 +175,7 @@ resource "oci_core_instance_configuration" "app_instance_configuration" {
       }
 
       metadata = {
-        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair[0].public_key_openssh : var.public_ssh_key
+        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.public_key_openssh : "${tls_private_key.public_private_key_pair.public_key_openssh}\n${var.public_ssh_key}"
         user_data           = data.cloudinit_config.operator.rendered
       }
     }
@@ -221,7 +220,7 @@ resource "null_resource" "install_postgress" {
       type        = "ssh"
       host        = data.oci_core_instance.app_instance[count.index].public_ip
       user        = "ubuntu"
-      private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair[0].private_key_pem : file (var.private_ssh_key_path)
+      private_key = tls_private_key.public_private_key_pair.private_key_pem 
     }
   }
 
@@ -235,7 +234,7 @@ resource "null_resource" "install_postgress" {
       type        = "ssh"
       host        = data.oci_core_instance.app_instance[count.index].public_ip
       user        = "ubuntu"
-      private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair[0].private_key_pem : file (var.private_ssh_key_path)
+      private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
   }
   
