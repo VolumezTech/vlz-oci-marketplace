@@ -180,18 +180,6 @@ resource "oci_core_instance_configuration" "app_instance_configuration" {
         user_data           = data.cloudinit_config.operator.rendered
       }
     }
-    dynamic "secondary_vnics" {
-      for_each = length(var.subnet_cidr_block_list) > 1 ? [1] : []
-      content {
-        create_vnic_details {
-          subnet_id                 = oci_core_subnet.vlz_subnet[1].id
-          assign_private_dns_record = true
-          assign_public_ip          = true
-          display_name              = "vlz-second-vnic-${random_string.deploy_id.result}"
-        }
-        display_name = "vlz-second-vnic-${random_string.deploy_id.result}"
-      }
-    }
   }
 }
 
@@ -204,13 +192,6 @@ resource "oci_core_instance_pool" "app_instance_pool" {
     availability_domain = local.availability_domain
     primary_subnet_id   = oci_core_subnet.vlz_subnet[0].id
     fault_domains       = local.fault_domains
-    dynamic "secondary_vnic_subnets" {
-      for_each = length(var.subnet_cidr_block_list) > 1 ? [1] : []
-      content {
-        subnet_id    = oci_core_subnet.vlz_subnet[1].id
-        display_name = "vlz-second-vnic-${random_string.deploy_id.result}"
-      }
-    }
   }
   size = var.app_num_of_instances
 
@@ -220,28 +201,6 @@ resource "oci_core_instance_pool" "app_instance_pool" {
 }
 
 
-resource "null_resource" "app_secondary_vnic_exec" {
-  count = local.secondary_vnic_config
-
-  depends_on = [oci_core_instance_pool.app_instance_pool]
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo ip link set dev ens340np0 mtu 9000",
-      "sudo ip link add link ens340np0 ens340np0.${local.secondary_vlan_id} address ${local.secondary_mac_address} type macvlan",
-      "sudo ip link add link ens340np0.${local.secondary_vlan_id} name ens340np0v${local.secondary_vlan_id} type vlan id ${local.secondary_vlan_id}",
-      "sudo ip addr add ${local.secondary_private_ip}/24 brd 10.1.21.255 dev ens340np0v${local.secondary_vlan_id} metric 100",
-      "sudo ip link set dev ens340np0.${local.secondary_vlan_id} mtu 9000",
-      "sudo ip link set ens340np0.${local.secondary_vlan_id} up"
-    ]
-    connection {
-      type        = "ssh"
-      host        = data.oci_core_instance.app_instance[count.index].public_ip
-      user        = "ubuntu"
-      private_key = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair[0].private_key_pem : file (var.private_ssh_key_path)
-    }
-  }
-}
 
 # resource "null_resource" "run_python_script" {
 #   provisioner "local-exec" {
