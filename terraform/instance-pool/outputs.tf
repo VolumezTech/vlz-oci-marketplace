@@ -4,10 +4,10 @@ output "tls_private_key" {
 }
 
 output "public-ip-media-instances" {
-  value = [{ for instance in data.oci_core_instance.media_instance : instance.id => instance.public_ip}]
+  value = [{ for instance in data.oci_core_instance.media_instance : instance.display_name => instance.public_ip}]
 }
 output "public-ip-app-instances" {
-  value = [{ for instance in data.oci_core_instance.app_instance : instance.id => instance.public_ip }]
+  value = [{ for instance in data.oci_core_instance.app_instance : instance.display_name => instance.public_ip }]
 }
 
 output "media_instance_pool_name" {
