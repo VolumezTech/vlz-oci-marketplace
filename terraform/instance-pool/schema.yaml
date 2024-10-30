@@ -63,7 +63,7 @@ variableGroups:
   - title: "SSH Public Key"
     variables:
       - generate_public_ssh_key
-      - ssh_public_key
+      - public_ssh_key
 
   # - title: "Virtual Cloud Network"
   #   visible: false
