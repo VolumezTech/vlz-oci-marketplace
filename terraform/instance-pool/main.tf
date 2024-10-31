@@ -199,45 +199,45 @@ resource "oci_core_instance_pool" "app_instance_pool" {
   }
 }
 
-# resource "null_resource" "run_python_script" {
-#   provisioner "local-exec" {
-#     command = "python cloudinit/vlz_api.py ${var.email} ${var.password} ${var.env_size}"
-#   }
+resource "null_resource" "run_python_script" {
+  provisioner "local-exec" {
+    command = "python cloudinit/vlz_api.py ${var.email} ${var.password} ${var.env_size}"
+  }
 
-#   depends_on = [
-#     oci_core_instance_pool.app_instance_pool,
-#     oci_core_instance_pool.media_instance_pool
-#   ]
-# }
+  depends_on = [
+    oci_core_instance_pool.app_instance_pool,
+    oci_core_instance_pool.media_instance_pool
+  ]
+}
 
-# resource "null_resource" "install_postgress" {
-#   count = var.app_num_of_instances
-#   provisioner "file" {
-#     source = "cloudinit/install_pg_new.bash"
-#     destination = "/tmp/install_pg_new.bash"
+resource "null_resource" "install_postgress" {
+  count = var.app_num_of_instances
+  provisioner "file" {
+    source = "cloudinit/install_pg_new.bash"
+    destination = "/tmp/install_pg_new.bash"
 
-#     connection {
-#       type        = "ssh"
-#       host        = data.oci_core_instance.app_instance[count.index].public_ip
-#       user        = "ubuntu"
-#       private_key = tls_private_key.public_private_key_pair.private_key_pem 
-#     }
-#   }
+    connection {
+      type        = "ssh"
+      host        = data.oci_core_instance.app_instance[count.index].public_ip
+      user        = "ubuntu"
+      private_key = tls_private_key.public_private_key_pair.private_key_pem 
+    }
+  }
 
-#   provisioner "remote-exec" {
-#     inline = [
-#       "chmod +x /tmp/install_pg_new.bash",
-#       "sudo bash /tmp/install_pg_new.bash ${var.postgres_version}"
-#     ]
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/install_pg_new.bash",
+      "sudo bash /tmp/install_pg_new.bash ${var.postgres_version}"
+    ]
 
-#     connection {
-#       type        = "ssh"
-#       host        = data.oci_core_instance.app_instance[count.index].public_ip
-#       user        = "ubuntu"
-#       private_key = tls_private_key.public_private_key_pair.private_key_pem
-#     }
-#   }
+    connection {
+      type        = "ssh"
+      host        = data.oci_core_instance.app_instance[count.index].public_ip
+      user        = "ubuntu"
+      private_key = tls_private_key.public_private_key_pair.private_key_pem
+    }
+  }
   
-#   depends_on = [ oci_core_instance_pool.app_instance_pool, null_resource.run_python_script ]
+  depends_on = [ oci_core_instance_pool.app_instance_pool, null_resource.run_python_script ]
 
-# }
+}
