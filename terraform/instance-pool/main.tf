@@ -175,7 +175,7 @@ resource "oci_core_instance_configuration" "app_instance_configuration" {
       }
 
       metadata = {
-        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.public_key_openssh : "${tls_private_key.public_private_key_pair.public_key_openssh}\n${var.public_ssh_key}"
+        ssh_authorized_keys = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.public_key_openssh : "${tls_private_key.public_private_key_pair.public_key_openssh}${var.public_ssh_key}"
         user_data           = data.cloudinit_config.operator.rendered
       }
     }
