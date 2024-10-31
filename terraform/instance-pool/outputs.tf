@@ -1,5 +1,6 @@
 output "tls_private_key" {
-  value     = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.private_key_pem : "Use your own private key"
+  # value     = var.generate_public_ssh_key ? tls_private_key.public_private_key_pair.private_key_pem : "Use your own private key"
+  value     = tls_private_key.public_private_key_pair.private_key_pem 
   sensitive = true
 }
 
