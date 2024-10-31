@@ -1,10 +1,9 @@
 locals {
   availability_domain = var.availability_domain_name != "" ? var.availability_domain_name: data.oci_identity_availability_domain.ad.name
   fault_domains = length(var.fault_domains) > 0 ? var.fault_domains : null
-
+  # Env Sizes
   media_num_of_instances = (var.env_size == "Small" || var.env_size == "Medium") ? 2 : 4
-  media_num_of_ocpus = (var.env_size == "Small") ? 8 : 16
-
+  media_num_of_ocpus = (var.env_size == "Small") ? 8 : 24 
   app_num_of_ocpus = (var.env_size == "Small") ? 8 : var.env_size == "Medium" ? 16 : 32
 
   num_of_subnets          = length(var.subnet_cidr_block_list)

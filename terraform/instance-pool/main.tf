@@ -3,12 +3,6 @@ provider "oci" {
   region = var.region  # Reference the region variable
 }
 
-# provider "oci" {
-#   auth = "SecurityToken"
-#   config_file_profile = var.config_file_profile
-#   region = var.region
-# }
-
 resource "null_resource" "singup_user" {
   provisioner "local-exec" {
     command = "cloudinit/singup_user.sh ${var.email} ${var.password}"
