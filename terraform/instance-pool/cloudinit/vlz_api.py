@@ -212,12 +212,16 @@ def main():
         }
         create_volume(OCI_URL, token, volume_body)
     
-    attachment_body = {
-        "volume": vol_name,
-        "snapshot": "top",
-        "node": app_node["name"],
-    }
-    create_attachment(OCI_URL, token, attachment_body, vol_name)
+    mounts = ["/mnt/volumez/pg_vol", "/mnt/volumez/pg_wal"]
+    for i in range(2):
+        vol_name = f"volume{i+1}"
+        attachment_body = {
+            "volume": vol_name,
+            "snapshot": "top",
+            "node": app_node["name"],
+            "mountpoint": mounts[i],
+        }
+        create_attachment(OCI_URL, token, attachment_body, vol_name)
     
 if __name__=="__main__":
     main()
