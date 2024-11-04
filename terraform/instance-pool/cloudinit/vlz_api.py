@@ -201,15 +201,16 @@ def main():
     }
     create_policy(OCI_URL, token, policy_body)
     
-    vol_name = "volume1"
-    volume_body = {
-        "name": vol_name,
-        "type": "file",
-        "size": 5000 if env_size == "Small" else 12000 if env_size == "Medium" else 20000,
-        "policy": env_size,
-        "zone": zone,   
-    }
-    create_volume(OCI_URL, token, volume_body)
+    for i in range(2):
+        vol_name = f"volume{i+1}"
+        volume_body = {
+            "name": vol_name,
+            "type": "file",
+            "size": 2500 if env_size == "Small" else 6000 if env_size == "Medium" else 10000,
+            "policy": env_size,
+            "zone": zone,   
+        }
+        create_volume(OCI_URL, token, volume_body)
     
     attachment_body = {
         "volume": vol_name,
