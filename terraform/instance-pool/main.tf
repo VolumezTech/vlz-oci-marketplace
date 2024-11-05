@@ -5,7 +5,7 @@ provider "oci" {
 
 resource "null_resource" "singup_user" {
   provisioner "local-exec" {
-    command = "cloudinit/singup_user.sh ${var.email} ${var.password}"
+    command = "scripts/singup_user.sh ${var.email} ${var.password}"
   }
 }
 
@@ -145,7 +145,7 @@ resource "oci_core_instance_configuration" "app_instance_configuration" {
       dynamic "shape_config" {
         for_each = var.app_ignore_cpu_mem_req ? [] : [1]
         content {
-          memory_in_gbs = var.app_memory_in_gbs
+          memory_in_gbs = local.app_memory_in_gbs
           ocpus         = local.app_num_of_ocpus
         }
       }
@@ -195,7 +195,7 @@ resource "oci_core_instance_pool" "app_instance_pool" {
 
 resource "null_resource" "run_python_script" {
   provisioner "local-exec" {
-    command = "python cloudinit/vlz_api.py ${var.email} ${var.password} ${var.env_size}"
+    command = "python scripts/vlz_api.py ${var.email} ${var.password} ${var.env_size}"
   }
 
   depends_on = [
@@ -207,8 +207,8 @@ resource "null_resource" "run_python_script" {
 resource "null_resource" "install_postgress" {
   count = var.app_num_of_instances
   provisioner "file" {
-    source = "cloudinit/install_pg_new.bash"
-    destination = "/tmp/install_pg_new.bash"
+    source = "scripts/postgresql/*"
+    destination = "/tmp/"
 
     connection {
       type        = "ssh"

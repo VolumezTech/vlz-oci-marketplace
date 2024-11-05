@@ -140,13 +140,13 @@ variable "app_shape" {
 variable "app_memory_in_gbs" {
   type        = number
   description = "Memory in GBs"
-  default     = 32
+  default     = 64
 }
 
 variable "app_num_of_ocpus" {
   type        = number
   description = "Memory in GBs"
-  default     = 8
+  default     = 20
 }
 
 variable "app_ignore_cpu_mem_req" {

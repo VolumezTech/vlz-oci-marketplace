@@ -4,7 +4,9 @@ locals {
   # Env Sizes
   media_num_of_instances = (var.env_size == "Small" || var.env_size == "Medium") ? 2 : 4
   media_num_of_ocpus = (var.env_size == "Small") ? 8 : 16 
-  app_num_of_ocpus = (var.env_size == "Small") ? 8 : var.env_size == "Medium" ? 16 : 32
+
+  app_num_of_ocpus = (var.env_size == "Small") ? 20 : var.env_size == "Medium" ? 48 : 96
+  app_memory_in_gbs = (var.env_size == "Small") ? 64 : var.env_size == "Medium" ? 128 : 256
 
   num_of_subnets          = length(var.subnet_cidr_block_list)
   num_of_instance_pools   = local.media_num_of_instances == 0 ? 0 : (local.media_num_of_instances == 1 ? 1 : local.num_of_subnets)
