@@ -220,8 +220,8 @@ resource "null_resource" "install_postgress" {
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/install_pg_new.bash",
-      "sudo bash /tmp/install_pg_new.bash ${var.postgres_version}"
+      "chmod +x /tmp/install_pg_v3.bash",
+      "sudo bash /tmp/install_pg_v3.bash ${var.postgres_version}"
     ]
 
     connection {
