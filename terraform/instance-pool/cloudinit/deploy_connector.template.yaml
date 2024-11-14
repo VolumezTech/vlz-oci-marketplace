@@ -19,10 +19,11 @@ runcmd:
   - sudo mkdir -p /opt/vlzconnector 2>&1 | sudo tee -a $LOG_FILE 
   - echo "deb [arch="$(dpkg --print-architecture)" trusted=yes] ${vlz_s3_path_to_conn} stable main" | sudo tee /etc/apt/sources.list.d/vlzconnector.list 
   - echo "\n email=$email password=$password" 2>&1 | sudo tee -a $LOG_FILE
-  - refreshtoken=$(curl -X POST ${vlz_rest_apigw}/signin -H "Content-Type:application/json" -d "{\"email\":\"${email}\",\"password\":\"${password}\"}" | jq -r ".RefreshToken") 
-  - echo "\n***refresh_token=$refreshtoken " 2>&1 | sudo tee -a $LOG_FILE
+  # - refreshtoken=$(curl -X POST ${vlz_rest_apigw}/signin -H "Content-Type:application/json" -d "{\"email\":\"${email}\",\"password\":\"${password}\"}" | jq -r ".RefreshToken") 
+  # - echo "\n***refresh_token=$refreshtoken " 2>&1 | sudo tee -a $LOG_FILE
   - echo "\n***Fetching ID-token to /opt/vlzconnector/dbg_idtoken " 2>&1 | sudo tee -a $LOG_FILE
-  - idtoken=`curl ${vlz_rest_apigw}/tenant/apiaccess/credentials/refresh -H "refreshtoken:$refreshtoken" | jq -r ".IdToken"` 
+  - idtoken=$(curl -X POST ${vlz_rest_apigw}/signin -H "Content-Type:application/json" -d "{\"email\":\"${email}\",\"password\":\"${password}\"}" | jq -r ".IdToken") 
+  # - idtoken=`curl ${vlz_rest_apigw}/tenant/apiaccess/credentials/refresh -H "refreshtoken:$refreshtoken" | jq -r ".IdToken"` 
   - echo $idtoken | sudo tee /opt/vlzconnector/dbg_idtoken 
   - echo "\n***Fetching tenant-token to /opt/vlzconnector/tenantToken" 2>&1 | sudo tee -a $LOG_FILE
   - tenanttoken=`curl ${vlz_rest_apigw}/tenant/token -H "authorization:$idtoken" -H 'content-type:application/json'  | jq -r ".AccessToken"` 
