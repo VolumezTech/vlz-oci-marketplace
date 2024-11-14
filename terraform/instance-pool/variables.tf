@@ -20,7 +20,7 @@ variable "generate_public_ssh_key" {
 
 variable "region" {
   type    = string
-  default = "us-ashburn-1"
+  # default = "us-ashburn-1"
 }
 
 variable "availability_domain_name" {
