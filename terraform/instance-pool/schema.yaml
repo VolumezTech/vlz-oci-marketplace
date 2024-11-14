@@ -135,8 +135,11 @@ variables:
   region:
     visible: true
     type: oci:identity:region:name
+    dependsOn:
+      compartmentId: compartment_ocid
     title: Region
     description: The OCI region to deploy resources into.
+    required: true
 
   availability_domain_name:
     type: oci:identity:availabilitydomain:name	
