@@ -49,8 +49,8 @@ variableGroups:
 
   - title: "Placement"
     variables:
-      - region
-      - availability_domain_name
+      - ${region}
+      - ${availability_domain_name}
       - ad_number
       - fault_domains
 
@@ -135,17 +135,14 @@ variables:
   region:
     visible: true
     type: oci:identity:region:name
-    dependsOn:
-      compartmentId: compartment_ocid
     title: Region
     description: The OCI region to deploy resources into.
     required: true
-    default: 1
 
   availability_domain_name:
     type: oci:identity:availabilitydomain:name	
     dependsOn:
-      region: region
+      compartmentId: ${compartment_ocid}
     title: Availability Domain Name
     description: The availability domain to deploy instances in.
     required: true
