@@ -140,6 +140,7 @@ variables:
     title: Region
     description: The OCI region to deploy resources into.
     required: true
+    default: 1
 
   availability_domain_name:
     type: oci:identity:availabilitydomain:name	
