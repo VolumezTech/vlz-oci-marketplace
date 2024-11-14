@@ -133,7 +133,7 @@ variables:
 
   # Region and Availability
   region:
-    visible: true
+    visible: false
     type: oci:identity:region:name
     title: Region
     description: The OCI region to deploy resources into.
