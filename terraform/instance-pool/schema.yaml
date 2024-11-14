@@ -42,15 +42,16 @@ variableGroups:
       - app_use_placement_group
 
   - title: "OCI Configuration"
-    visible: true
+    visible: false
     variables:
       - tenancy_ocid
       - compartment_ocid
+      - region
+
 
   - title: "Placement"
     variables:
-      - ${region}
-      - ${availability_domain_name}
+      - availability_domain_name
       - ad_number
       - fault_domains
 
