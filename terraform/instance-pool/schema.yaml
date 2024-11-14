@@ -132,12 +132,12 @@ variables:
     required: true
 
   # Region and Availability
-  region:
-    visible: false
-    type: oci:identity:region:name
-    title: Region
-    description: The OCI region to deploy resources into.
-    required: true
+  # region:
+  #   visible: false
+  #   type: oci:identity:region:name
+  #   title: Region
+  #   description: The OCI region to deploy resources into.
+  #   required: true
 
   availability_domain_name:
     type: oci:identity:availabilitydomain:name	
