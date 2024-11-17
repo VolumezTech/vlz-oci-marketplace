@@ -172,8 +172,8 @@ variable "postgres_version" {
   description = "Postgres Version"
   default     = "13"
   validation {
-    condition     = contains(["13", "14", "15"], var.postgres_version)
-    error_message = "Invalid Postgres Version. Must be one of 13, 14, 15"
+    condition     = contains(["13", "14", "15", "16"], var.postgres_version)
+    error_message = "Invalid Postgres Version. Must be one of 13, 14, 15, 16"
   }
   
 }
