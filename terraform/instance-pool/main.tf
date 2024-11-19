@@ -235,3 +235,11 @@ resource "null_resource" "install_postgress" {
   depends_on = [ oci_core_instance_pool.app_instance_pool, null_resource.run_python_script ]
 
 }
+
+resource "null_resource" "destroy" {
+  provisioner "local-exec" {
+    when = destroy
+    command = "scripts/cleanup.sh"
+  }
+  
+}
