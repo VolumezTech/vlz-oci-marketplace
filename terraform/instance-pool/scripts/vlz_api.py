@@ -171,6 +171,7 @@ def main():
     env_size = args.envSize
 
     wait_for_nodes_online(OCI_URL, token)
+    time.sleep(30)
     assign_all(OCI_URL, token)
     wait_for_media_assigned(OCI_URL, token)
     
