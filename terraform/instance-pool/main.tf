@@ -239,7 +239,7 @@ resource "null_resource" "install_postgress" {
 resource "null_resource" "destroy" {
   provisioner "local-exec" {
     when = destroy
-    command = "scripts/cleanup.sh"
+    command = "scripts/tenant_cleanup.sh ${var.email} ${var.password}"
   }
   
 }
