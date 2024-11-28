@@ -1,5 +1,6 @@
 #!/bin/bash
 
+LOG_FILE=tenant_cleanup.log
 # Define colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -30,8 +31,6 @@ response=$(curl -X POST "$BASE_URL/signin" \
      -d "$payload")
 
 TOKEN=$(echo "$response" | jq -r '.IdToken')
-LOG_FILE=tenant_cleanup.log
-
 
 print_error() {
     local message="$1"
