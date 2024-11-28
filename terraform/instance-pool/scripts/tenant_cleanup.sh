@@ -28,7 +28,7 @@ payload=$(jq -n \
 response=$(curl -X POST "$BASE_URL/signin" \
      -H "content-type: application/json" \
      -d "$payload")
-echo $response
+
 TOKEN=$(echo "$response" | jq -r '.IdToken')
 LOG_FILE=tenant_cleanup.log
 
