@@ -1,36 +1,37 @@
 #!/bin/bash
 
+
 LOG_FILE=tenant_cleanup.log
+BASE_URL="https://oci.api.volumez.com" 
+
 # Define colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m'  # No Color
 
-BASE_URL="https://oci.api.volumez.com" 
 
-# Check if both email and password are provided as arguments
-if [ -z "$1" ] || [ -z "$2" ]; then
-    echo "Usage: $0 <email> <password>"
-    exit 1
-fi
-
-# Assign arguments to variables
-email="$1"
-password="$2"
-
-# Construct the JSON payload
-payload=$(jq -n \
-            --arg email "$email" \
-            --arg password "$password" \
-            '{email: $email, password: $password}')
-
-# Execute the curl command
-response=$(curl -X POST "$BASE_URL/signin" \
-     -H "content-type: application/json" \
-     -d "$payload")
-
-TOKEN=$(echo "$response" | jq -r '.IdToken')
+args_pars() {
+    local email="$1"
+    local password="$2"
+    # Check if both email and password are provided as arguments
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: $0 <email> <password>"
+        exit 1
+    fi
+    # Construct the JSON payload
+    payload=$(jq -n \
+                --arg email "$email" \
+                --arg password "$password" \
+                '{email: $email, password: $password}')
+    
+    # Execute the curl command
+    response=$(curl -X POST "$BASE_URL/signin" \
+         -H "content-type: application/json" \
+         -d "$payload")
+    
+    TOKEN=$(echo "$response" | jq -r '.IdToken')
+}
 
 print_error() {
     local message="$1"
@@ -49,7 +50,7 @@ api_get() {
     cmd="curl --fail-with-body -X GET \"$BASE_URL/$url_path/?limit=$limit\" -H 'content-type: application/json' -H \"authorization: $TOKEN\""
     cmd_for_log=$(echo "$cmd" | sed -E 's/-H .*//')
     echo -n "running: $cmd_for_log " >> "$LOG_FILE"
-    response=$(eval "$cmd" ) >> "$LOG_FILE"
+    response=$(eval "$cmd" )
     if [ $? -eq 0 ]; then
         echo -n "[Success]" >> "$LOG_FILE"
         echo >> "$LOG_FILE"
@@ -66,7 +67,7 @@ api_delete() {
     cmd="curl --fail-with-body -X DELETE \"$BASE_URL/$url_path\" -H 'content-type: application/json' -H \"authorization: $TOKEN\""
     cmd_for_log=$(echo "$cmd" | sed -E 's/-H .*//')
     echo -n "running: $cmd_for_log " >> "$LOG_FILE"
-    response=$(eval "$cmd" ) >> "$LOG_FILE"
+    response=$(eval "$cmd" )
     if [ $? -eq 0 ]; then
         echo -n "[Success]" >> "$LOG_FILE"
         echo >> $LOG_FILE
@@ -78,7 +79,7 @@ api_delete() {
         cmd="curl --fail-with-body -X DELETE \"$BASE_URL/$url_path?force=true\" -H 'content-type: application/json' -H \"authorization: $TOKEN\""
         cmd_for_log=$(echo "$cmd" | sed -E 's/-H .*//')
         echo -n "running: $cmd_for_log " >> "$LOG_FILE"
-        response=$(eval "$cmd" ) >> "$LOG_FILE"
+        response=$(eval "$cmd" )
         if [ $? -eq 0 ]; then
             echo  -n "[Success]" >> "$LOG_FILE"
             echo $response
@@ -94,7 +95,7 @@ api_delete_force() {
     cmd="curl --fail-with-body -X DELETE \"$BASE_URL/$url_path/?force=yes\" -H 'content-type: application/json' -H \"authorization: $TOKEN\""
     cmd_for_log=$(echo "$cmd" | sed -E 's/-H .*//')
     echo -n "running: $cmd_for_log " >> "$LOG_FILE"
-    response=$(eval "$cmd" ) >> "$LOG_FILE"
+    response=$(eval "$cmd" )
     if [ $? -eq 0 ]; then
         echo -n "[Success]" >> "$LOG_FILE"
         echo >> $LOG_FILE
@@ -108,10 +109,10 @@ api_delete_force() {
 check_token() {
     curl --fail-with-body -X GET $BASE_URL/version -H 'content-type: application/json' -H "authorization: $TOKEN"  > /dev/null 2>&1
     if [ $? -ne 0 ]; then
-        print_error "Token is invalid"
+        print_error "Worng username or password"
         exit 1
     else 
-        print_ok "Token is valid"
+        echo "Token is valid" >> "$LOG_FILE"
     fi
 }
 
@@ -166,7 +167,7 @@ get_nodes() {
 
 del_node() {
     local name=$1
-    response=$(api_delete "nodes/$name")
+    response=$(api_delete_force "nodes/$name")
 }
 
 del_nodes() {
@@ -218,7 +219,8 @@ fresh_log() {
 
 # main #
 
-# 0. init 
+# 0. init
+args_pars "$@" 
 fresh_log
 check_token
 
