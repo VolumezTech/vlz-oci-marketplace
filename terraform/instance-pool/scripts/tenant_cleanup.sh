@@ -8,6 +8,12 @@ NC='\033[0m'  # No Color
 
 BASE_URL="https://oci.api.volumez.com" 
 
+# Check if both email and password are provided as arguments
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Usage: $0 <email> <password>"
+    exit 1
+fi
+
 # Assign arguments to variables
 email="$1"
 password="$2"
@@ -22,19 +28,10 @@ payload=$(jq -n \
 response=$(curl -X POST "$BASE_URL/signin" \
      -H "content-type: application/json" \
      -d "$payload")
-
+echo $response
 TOKEN=$(echo "$response" | jq -r '.IdToken')
 LOG_FILE=tenant_cleanup.log
 
-
-
-args_pars() {
-  # Check if both email and password are provided as arguments
-  if [ -z "$1" ] || [ -z "$2" ]; then
-    echo "Usage: $0 <email> <password>"
-    exit 1
-  fi
-}
 
 print_error() {
     local message="$1"
@@ -78,18 +75,16 @@ api_delete() {
     else
         echo "$response [Error]" >> "$LOG_FILE"
         print_error "deleting $url_path Failed"
-        if echo $response | grep -qi 'Use force to delete'; then
-            echo "response suggested we should use force"
-            cmd="curl --fail-with-body -X DELETE \"$BASE_URL/$url_path?force=true\" -H 'content-type: application/json' -H \"authorization: $TOKEN\""
-            cmd_for_log=$(echo "$cmd" | sed -E 's/-H .*//')
-            echo -n "running: $cmd_for_log " >> "$LOG_FILE"
-            response=$(eval "$cmd" ) >> "$LOG_FILE"
-            if [ $? -eq 0 ]; then
-                echo  -n "[Success]" >> "$LOG_FILE"
-                echo $response
-            else
-                echo "$response [Error]" >> "$LOG_FILE"
-            fi
+        echo "Trying force"
+        cmd="curl --fail-with-body -X DELETE \"$BASE_URL/$url_path?force=true\" -H 'content-type: application/json' -H \"authorization: $TOKEN\""
+        cmd_for_log=$(echo "$cmd" | sed -E 's/-H .*//')
+        echo -n "running: $cmd_for_log " >> "$LOG_FILE"
+        response=$(eval "$cmd" ) >> "$LOG_FILE"
+        if [ $? -eq 0 ]; then
+            echo  -n "[Success]" >> "$LOG_FILE"
+            echo $response
+        else
+            echo "$response [Error]" >> "$LOG_FILE"
         fi
     fi
 }
@@ -116,7 +111,7 @@ check_token() {
     if [ $? -ne 0 ]; then
         print_error "Token is invalid"
         exit 1
-    else
+    else 
         print_ok "Token is valid"
     fi
 }
@@ -225,7 +220,6 @@ fresh_log() {
 # main #
 
 # 0. init 
-# args_pars "$@"
 fresh_log
 check_token
 
