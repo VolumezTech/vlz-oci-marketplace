@@ -40,6 +40,7 @@ variableGroups:
       - app_ignore_cpu_mem_req
       - app_num_of_instances
       - app_use_placement_group
+      - marketplace_source_images
 
   - title: "OCI Configuration"
     visible: false
