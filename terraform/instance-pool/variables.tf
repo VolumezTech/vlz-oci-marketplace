@@ -1,13 +1,13 @@
 variable "email" {
   type        = string
   description = "Email address of the user"
-  
+
 }
 
 variable "password" {
   type        = string
   description = "Password of the user"
-  
+
 }
 
 variable "public_ssh_key" {
@@ -19,7 +19,7 @@ variable "generate_public_ssh_key" {
 }
 
 variable "region" {
-  type    = string
+  type = string
   # default = "us-ashburn-1"
 }
 
@@ -32,13 +32,13 @@ variable "ad_number" {
   type        = number
   description = "Availability Domain Number"
   default     = 1
-  
+
 }
 
 variable "fault_domains" {
   type        = list(string)
   description = "Fault Domains"
-  default = ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
+  default     = ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
 }
 
 variable "subnet_cidr_block_list" {
@@ -65,14 +65,14 @@ variable "vlz_s3_path_to_conn" {
 variable "vlz_rest_apigw" {
   type        = string
   description = "VLZ REST API Gateway"
-  default = "https://oci.api.volumez.com"
+  default     = "https://oci.api.volumez.com"
 }
 
 
 ### Envs Sizes ###
 variable "env_size" {
-  type       = string
-  default    = "Small"
+  type    = string
+  default = "Small"
   validation {
     condition     = contains(["Small", "Medium", "Large"], var.env_size)
     error_message = "Invalid env_size. Must be one of Small, Medium, Large"
@@ -84,7 +84,7 @@ variable "env_size" {
 variable "media_image_id" {
   type        = string
   description = "Image OCID"
-  default = "ocid1.image.oc1.iad.aaaaaaaahpxkae72yjmwf4z277z2kydw2s4snn2tafychp2n2jx2yqmyjl3q"
+  default     = "ocid1.image.oc1.iad.aaaaaaaahpxkae72yjmwf4z277z2kydw2s4snn2tafychp2n2jx2yqmyjl3q"
 }
 
 variable "media_shape" {
@@ -128,7 +128,7 @@ variable "media_use_placement_group" {
 variable "app_image_id" {
   type        = string
   description = "Image OCID"
-  default = "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
+  default     = "ocid1.image.oc1.us-chicago-1.aaaaaaaablgbvtnll3bamfwk5vjqk4fjnwheqyhsyez2juynjs6ycm5rhsla"
 }
 
 variable "app_shape" {
@@ -175,5 +175,5 @@ variable "postgres_version" {
     condition     = contains(["13", "14", "15", "16"], var.postgres_version)
     error_message = "Invalid Postgres Version. Must be one of 13, 14, 15, 16"
   }
-  
+
 }

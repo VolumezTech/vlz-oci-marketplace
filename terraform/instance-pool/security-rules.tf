@@ -4,8 +4,8 @@ resource "oci_core_security_list" "volumez-sl" {
   display_name   = "volumez-sl-${random_string.deploy_id.result}"
 
   egress_security_rules {
-    protocol    = "all"
-    destination = "0.0.0.0/0"
+    protocol         = "all"
+    destination      = "0.0.0.0/0"
     destination_type = "CIDR_BLOCK"
   }
 

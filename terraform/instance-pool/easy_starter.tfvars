@@ -1,4 +1,4 @@
-email = "itay.ginor@volumez.com"
+email    = "itay.ginor@volumez.com"
 password = "Ginor2021#"
 
 ### Networking ###

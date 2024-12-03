@@ -1,6 +1,6 @@
 provider "oci" {
   auth   = "InstancePrincipal"
-  region = var.region  # Reference the region variable
+  region = var.region # Reference the region variable
 }
 
 resource "null_resource" "singup_user" {
@@ -81,15 +81,15 @@ resource "oci_core_instance_configuration" "media_instance_configuration" {
     instance_type = "compute"
 
     launch_details {
-      compartment_id = var.tenancy_ocid
-      shape          = var.media_shape
+      compartment_id             = var.tenancy_ocid
+      shape                      = var.media_shape
       cluster_placement_group_id = local.media_cluster_pg_or_null
 
       dynamic "shape_config" {
         for_each = var.media_ignore_cpu_mem_req ? [] : [1]
         content {
           # memory_in_gbs = var.media_memory_in_gbs
-          ocpus         = local.media_num_of_ocpus
+          ocpus = local.media_num_of_ocpus
         }
       }
 
@@ -116,7 +116,7 @@ resource "oci_core_instance_pool" "media_instance_pool" {
   compartment_id            = var.tenancy_ocid
   instance_configuration_id = oci_core_instance_configuration.media_instance_configuration.id
   display_name              = format("media-instance-pool-${random_string.deploy_id.result}-%s", count.index)
-  
+
   placement_configurations {
     availability_domain = local.availability_domain
     primary_subnet_id   = oci_core_subnet.vlz_subnet[count.index].id
@@ -138,8 +138,8 @@ resource "oci_core_instance_configuration" "app_instance_configuration" {
     instance_type = "compute"
 
     launch_details {
-      compartment_id = var.tenancy_ocid
-      shape          = var.app_shape
+      compartment_id             = var.tenancy_ocid
+      shape                      = var.app_shape
       cluster_placement_group_id = local.app_cluster_pg_or_null
 
       dynamic "shape_config" {
@@ -207,14 +207,14 @@ resource "null_resource" "run_python_script" {
 resource "null_resource" "install_postgress" {
   count = var.app_num_of_instances
   provisioner "file" {
-    source = "scripts/postgresql/"
+    source      = "scripts/postgresql/"
     destination = "/tmp/"
 
     connection {
       type        = "ssh"
       host        = data.oci_core_instance.app_instance[count.index].public_ip
       user        = "ubuntu"
-      private_key = tls_private_key.public_private_key_pair.private_key_pem 
+      private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
   }
 
@@ -231,8 +231,8 @@ resource "null_resource" "install_postgress" {
       private_key = tls_private_key.public_private_key_pair.private_key_pem
     }
   }
-  
-  depends_on = [ oci_core_instance_pool.app_instance_pool, null_resource.run_python_script ]
+
+  depends_on = [oci_core_instance_pool.app_instance_pool, null_resource.run_python_script]
 
 }
 

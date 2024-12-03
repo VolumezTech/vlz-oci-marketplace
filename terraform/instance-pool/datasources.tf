@@ -59,13 +59,13 @@ data "oci_core_instance" "app_instance" {
 
 data "oci_core_instance_pool_instances" "media_pool" {
   depends_on = [oci_core_instance_pool.media_instance_pool]
-  count = local.media_num_of_instances > 0 ? 1 : 0
+  count      = local.media_num_of_instances > 0 ? 1 : 0
 
   compartment_id   = var.tenancy_ocid
   instance_pool_id = oci_core_instance_pool.media_instance_pool[0].id
 }
 
 data "oci_core_instance" "media_instance" {
-  count = local.media_num_of_instances 
+  count       = local.media_num_of_instances
   instance_id = data.oci_core_instance_pool_instances.media_pool[0].instances[count.index].id
 }

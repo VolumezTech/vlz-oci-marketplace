@@ -1,7 +1,5 @@
 #cloud-config
 timezone: ${operator_timezone}
-# bootcmd:
-#   - [dnf, config-manager, --disable, ol8_MySQL80, --disable, ol8_MySQL80_connectors_community, --disable, ol8_MySQL80_tools_community, --disable, ol8_addons, --disable, ol8_ksplice]
 
 runcmd:
   - set -ex
@@ -19,11 +17,8 @@ runcmd:
   - sudo mkdir -p /opt/vlzconnector 2>&1 | sudo tee -a $LOG_FILE 
   - echo "deb [arch="$(dpkg --print-architecture)" trusted=yes] ${vlz_s3_path_to_conn} stable main" | sudo tee /etc/apt/sources.list.d/vlzconnector.list 
   - echo "\n email=$email password=$password" 2>&1 | sudo tee -a $LOG_FILE
-  # - refreshtoken=$(curl -X POST ${vlz_rest_apigw}/signin -H "Content-Type:application/json" -d "{\"email\":\"${email}\",\"password\":\"${password}\"}" | jq -r ".RefreshToken") 
-  # - echo "\n***refresh_token=$refreshtoken " 2>&1 | sudo tee -a $LOG_FILE
   - echo "\n***Fetching ID-token to /opt/vlzconnector/dbg_idtoken " 2>&1 | sudo tee -a $LOG_FILE
   - idtoken=$(curl -X POST ${vlz_rest_apigw}/signin -H "Content-Type:application/json" -d "{\"email\":\"${email}\",\"password\":\"${password}\"}" | jq -r ".IdToken") 
-  # - idtoken=`curl ${vlz_rest_apigw}/tenant/apiaccess/credentials/refresh -H "refreshtoken:$refreshtoken" | jq -r ".IdToken"` 
   - echo $idtoken | sudo tee /opt/vlzconnector/dbg_idtoken 
   - echo "\n***Fetching tenant-token to /opt/vlzconnector/tenantToken" 2>&1 | sudo tee -a $LOG_FILE
   - tenanttoken=`curl ${vlz_rest_apigw}/tenant/token -H "authorization:$idtoken" -H 'content-type:application/json'  | jq -r ".AccessToken"` 
@@ -56,9 +51,3 @@ runcmd:
   - echo "\n***Rebooting..." 2>&1 | sudo tee -a $LOG_FILE
   - sudo reboot 2>&1 | sudo tee -a $LOG_FILE
 
-# final_message: |
-#   cloud-init has finished
-#   version: $version
-#   timestamp: $timestamp
-#   datasource: $datasource
-#   uptime: $uptime
