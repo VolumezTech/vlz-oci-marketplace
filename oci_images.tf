@@ -6,7 +6,7 @@ variable "marketplace_source_images" {
   }))
   default = {
     main_mktpl_image = {
-      ocid                  = "ocid1.image.oc1..placeholder"
+      ocid                  = ""
       is_pricing_associated = false
       compatible_shapes     = []
     }
