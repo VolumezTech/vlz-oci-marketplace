@@ -2,7 +2,7 @@ email    = "itay.ginor@volumez.com"
 password = "Ginor2021#"
 
 ### Networking ###
-region                 = "us-phoenix-1"
+region                 = "us-ashburn-1"
 ad_number              = 1
 subnet_cidr_block_list = ["10.1.20.0/24"]
 fault_domains          = ["FAULT-DOMAIN-1"]
@@ -18,7 +18,7 @@ vlz_s3_path_to_conn = "https://signup.volumez.com/oci_poc_14/ubuntu"
 vlz_rest_apigw      = "https://oci.api.volumez.com"
 
 ### Media ###
-media_image_id            = "ocid1.image.oc1.phx.aaaaaaaajxeqzy3z5qwcwtksj76ymu5gxt24qbv22r7lzukux7dbfugdwyka"
+media_image_id            = "ocid1.image.oc1.iad.aaaaaaaasr6rkcl24zzmecvinvqxizgyqhlgyvw6ckzudknav62bxut7jaxq"
 media_num_of_instances    = 1
 media_shape               = "VM.DenseIO.E4.Flex"
 media_num_of_ocpus        = 8
@@ -27,7 +27,7 @@ media_use_placement_group = false
 media_ignore_cpu_mem_req  = false
 
 ### App ###
-app_image_id            = "ocid1.image.oc1.phx.aaaaaaaajxeqzy3z5qwcwtksj76ymu5gxt24qbv22r7lzukux7dbfugdwyka"
+app_image_id            = "ocid1.image.oc1.iad.aaaaaaaasr6rkcl24zzmecvinvqxizgyqhlgyvw6ckzudknav62bxut7jaxq"
 app_num_of_instances    = 0
 app_shape               = "VM.Standard.E5.Flex"
 app_num_of_ocpus        = 8
