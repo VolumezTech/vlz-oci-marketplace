@@ -96,7 +96,7 @@ resource "oci_core_instance_configuration" "media_instance_configuration" {
       source_details {
         source_type             = "image"
         boot_volume_size_in_gbs = 60
-        image_id                = "ocid1.image.oc1.iad.aaaaaaaasr6rkcl24zzmecvinvqxizgyqhlgyvw6ckzudknav62bxut7jaxq"
+        image_id                = "ocid1.image.oc1..aaaaaaaae4o5zvaipl7xmspt3fhvzntb23vq42jszowjbso4kcl4lwzjy73a"
       }
       launch_options {
         network_type = "VFIO"
@@ -153,7 +153,7 @@ resource "oci_core_instance_configuration" "app_instance_configuration" {
       source_details {
         source_type             = "image"
         boot_volume_size_in_gbs = 60
-        image_id                = "ocid1.image.oc1.iad.aaaaaaaasr6rkcl24zzmecvinvqxizgyqhlgyvw6ckzudknav62bxut7jaxq"
+        image_id                = "ocid1.image.oc1..aaaaaaaae4o5zvaipl7xmspt3fhvzntb23vq42jszowjbso4kcl4lwzjy73a"
       }
 
       create_vnic_details {

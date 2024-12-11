@@ -6,7 +6,7 @@ variable "marketplace_source_images" {
   }))
   default = {
     main_mktpl_image = {
-      ocid                  = "ocid1.image.oc1.iad.aaaaaaaasr6rkcl24zzmecvinvqxizgyqhlgyvw6ckzudknav62bxut7jaxq"
+      ocid                  = "ocid1.image.oc1..aaaaaaaae4o5zvaipl7xmspt3fhvzntb23vq42jszowjbso4kcl4lwzjy73a"
       is_pricing_associated = false
       compatible_shapes     = []
     }

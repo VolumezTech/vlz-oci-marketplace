@@ -84,7 +84,7 @@ variable "env_size" {
 variable "media_image_id" {
   type        = string
   description = "Image OCID"
-  default     = "ocid1.image.oc1.iad.aaaaaaaasr6rkcl24zzmecvinvqxizgyqhlgyvw6ckzudknav62bxut7jaxq"
+  default     = "ocid1.image.oc1..aaaaaaaae4o5zvaipl7xmspt3fhvzntb23vq42jszowjbso4kcl4lwzjy73a"
 }
 
 variable "media_shape" {
@@ -128,7 +128,7 @@ variable "media_use_placement_group" {
 variable "app_image_id" {
   type        = string
   description = "Image OCID"
-  default     = "ocid1.image.oc1.iad.aaaaaaaasr6rkcl24zzmecvinvqxizgyqhlgyvw6ckzudknav62bxut7jaxq"
+  default     = "ocid1.image.oc1..aaaaaaaae4o5zvaipl7xmspt3fhvzntb23vq42jszowjbso4kcl4lwzjy73a"
 }
 
 variable "app_shape" {
