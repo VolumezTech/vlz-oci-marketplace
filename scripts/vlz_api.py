@@ -184,7 +184,7 @@ def main():
             break
     
     policy_body = {
-        "name": env_size,
+        "name": env_size.lower(),
         "iopswrite": 80000 if env_size == "Small" else 160000 if env_size == "Medium" else 320000,
         "iopsread": 160000 if env_size == "Small" else 320000 if env_size == "Medium" else 640000,
         "bandwidthwrite": 600 if env_size == "Small" else 1200 if env_size == "Medium" else 2400,
