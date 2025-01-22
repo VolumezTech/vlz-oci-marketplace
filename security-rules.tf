@@ -34,64 +34,46 @@
 #   }
 # }
 
-resource "oci_core_network_security_group" "volumez-sl" {
+resource "oci_core_security_list" "volumez_sl" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vlz_vcn.id
   display_name   = "volumez-sl-${random_string.deploy_id.result}"
-}
 
-resource "oci_core_network_security_group_security_rule" "ingress_rules" {
-  for_each = {
-    22    = "SSH"
-    8009  = "Custom 8009"
-    3260  = "iSCSI"
-    8000  = "Custom 8000"
-    8082  = "Custom 8082"
-    80    = "HTTP"
-    8765  = "Custom 8765"
-    9092  = "Kafka"
-    47604 = "Custom 47604"
-    8443  = "HTTPS Alt"
-    5986  = "WinRM HTTPS"
-    5149  = "Custom 5149"
-    8999  = "Custom 8999"
-    443   = "HTTPS"
-    3000  = "Custom 3000"
-    6068  = "Custom 6068"
-  }
-
-  network_security_group_id = oci_core_network_security_group.volumez-sl.id
-  direction                 = "INGRESS"
-  protocol                  = "6" # TCP
-  source                    = "10.1.20.0/24"
-  source_type               = "CIDR_BLOCK"
-  tcp_options {
-    destination_port_range {
-      min = each.key
-      max = each.key
+  # Ingress rules
+  dynamic "ingress_security_rules" {
+    for_each = [22, 8009, 3260, 8000, 8082, 80, 8765, 9092, 47604, 8443, 5986, 5149, 8999, 443, 3000, 6068]
+    content {
+      protocol    = "6"  # TCP
+      source      = "10.1.20.0/24"
+      description = "TCP port ${ingress_security_rules.value}"
+      tcp_options {
+        min = ingress_security_rules.value
+        max = ingress_security_rules.value
+      }
     }
   }
-  description = each.value
-}
 
-resource "oci_core_network_security_group_security_rule" "icmp_rule" {
-  network_security_group_id = oci_core_network_security_group.volumez-sl.id
-  direction                 = "INGRESS"
-  protocol                  = "1" # ICMP
-  source                    = "10.1.20.0/24"
-  source_type               = "CIDR_BLOCK"
-  icmp_options {
-    type = 3
-    code = 4
+  # ICMP rule
+  ingress_security_rules {
+    protocol    = "1"  # ICMP
+    source      = "10.1.20.0/24"
+    description = "ICMP traffic"
+    icmp_options {
+      type = 3
+      code = 4
+    }
   }
-  description = "ICMP"
-}
 
-resource "oci_core_network_security_group_security_rule" "egress_rule" {
-  network_security_group_id = oci_core_network_security_group.volumez-sl.id
-  direction                 = "EGRESS"
-  protocol                  = "all"
-  destination               = "10.1.20.0/24"
-  destination_type          = "CIDR_BLOCK"
-  description               = "Allow all outbound traffic"
+  # Egress rule
+  egress_security_rules {
+    protocol    = "all"
+    destination = "10.1.20.0/24"
+    description = "Allow all outbound traffic"
+  }
+
+  # Optional: Add tags if needed
+  freeform_tags = {
+    "Name"      = "volumez-sl"
+    "Terraform" = "true"
+  }
 }
