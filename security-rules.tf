@@ -63,7 +63,7 @@ resource "oci_core_network_security_group_security_rule" "ingress_rules" {
   network_security_group_id = oci_core_network_security_group.node_sg.id
   direction                 = "INGRESS"
   protocol                  = "6" # TCP
-  source                    = [var.subnet_cidr_block_list]
+  source                    = "10.1.20.0/24"
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
@@ -78,7 +78,7 @@ resource "oci_core_network_security_group_security_rule" "icmp_rule" {
   network_security_group_id = oci_core_network_security_group.node_sg.id
   direction                 = "INGRESS"
   protocol                  = "1" # ICMP
-  source                    = [var.subnet_cidr_block_list]
+  source                    = "10.1.20.0/24"
   source_type               = "CIDR_BLOCK"
   icmp_options {
     type = 3
@@ -91,7 +91,7 @@ resource "oci_core_network_security_group_security_rule" "egress_rule" {
   network_security_group_id = oci_core_network_security_group.node_sg.id
   direction                 = "EGRESS"
   protocol                  = "all"
-  destination               = [var.subnet_cidr_block_list]
+  destination               = "10.1.20.0/24"
   destination_type          = "CIDR_BLOCK"
   description               = "Allow all outbound traffic"
 }
