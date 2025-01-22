@@ -10,7 +10,7 @@ resource "oci_core_security_list" "volumez-sl" {
   }
 
   ingress_security_rules {
-    protocol    = "tcp"
+    protocol    = "6"
     tcp_options {
       source_port_range {
         min = 22
@@ -22,7 +22,7 @@ resource "oci_core_security_list" "volumez-sl" {
   }
 
   ingress_security_rules {
-    protocol    = "tcp"
+    protocol    = "6"
     tcp_options {
       source_port_range {
         min = 8009
