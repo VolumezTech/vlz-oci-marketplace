@@ -54,7 +54,7 @@ resource "oci_core_subnet" "vlz_subnet" {
   cidr_block          = var.subnet_cidr_block_list[count.index]
   display_name        = "VlzSubnet-${count.index}-${random_string.deploy_id.result}"
   dns_label           = "vlzsubnet${count.index}"
-  security_list_ids   = [oci_core_network_security_group.volumez-sl.id]
+  security_list_ids   = [oci_core_security_list.volumez_sl.id]
   compartment_id      = var.compartment_ocid
   vcn_id              = oci_core_vcn.vlz_vcn.id
   route_table_id      = oci_core_route_table.vlz_route_table.id
