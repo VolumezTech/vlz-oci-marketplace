@@ -34,7 +34,7 @@
 #   }
 # }
 
-resource "oci_core_network_security_group" "node_sg" {
+resource "oci_core_network_security_group" "volumez-sl" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vlz_vcn.id
   display_name   = "volumez-sl-${random_string.deploy_id.result}"
