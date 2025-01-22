@@ -60,7 +60,7 @@ resource "oci_core_network_security_group_security_rule" "ingress_rules" {
     6068  = "Custom 6068"
   }
 
-  network_security_group_id = oci_core_network_security_group.node_sg.id
+  network_security_group_id = oci_core_network_security_group.volumez-sl.id
   direction                 = "INGRESS"
   protocol                  = "6" # TCP
   source                    = "10.1.20.0/24"
@@ -75,7 +75,7 @@ resource "oci_core_network_security_group_security_rule" "ingress_rules" {
 }
 
 resource "oci_core_network_security_group_security_rule" "icmp_rule" {
-  network_security_group_id = oci_core_network_security_group.node_sg.id
+  network_security_group_id = oci_core_network_security_group.volumez-sl.id
   direction                 = "INGRESS"
   protocol                  = "1" # ICMP
   source                    = "10.1.20.0/24"
@@ -88,7 +88,7 @@ resource "oci_core_network_security_group_security_rule" "icmp_rule" {
 }
 
 resource "oci_core_network_security_group_security_rule" "egress_rule" {
-  network_security_group_id = oci_core_network_security_group.node_sg.id
+  network_security_group_id = oci_core_network_security_group.volumez-sl.id
   direction                 = "EGRESS"
   protocol                  = "all"
   destination               = "10.1.20.0/24"
