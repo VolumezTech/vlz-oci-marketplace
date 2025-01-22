@@ -1,79 +1,61 @@
-# resource "oci_core_security_list" "volumez-sl" {
-#   compartment_id = var.compartment_ocid
-#   vcn_id         = oci_core_vcn.vlz_vcn.id
-#   display_name   = "volumez-sl-${random_string.deploy_id.result}"
-
-#   egress_security_rules {
-#     protocol         = "all"
-#     destination      = "0.0.0.0/0"
-#     destination_type = "CIDR_BLOCK"
-#   }
-
-#   ingress_security_rules {
-#     protocol    = "6"
-#     tcp_options {
-#       source_port_range {
-#         min = 22
-#         max = 22
-#       }
-#     }
-#     source      = "0.0.0.0/0"
-#     source_type = "CIDR_BLOCK"
-#   }
-
-#   ingress_security_rules {
-#     protocol    = "6"
-#     tcp_options {
-#       source_port_range {
-#         min = 8009
-#         max = 8009
-#       }
-#     }
-#     source      = "0.0.0.0/0"
-#     source_type = "CIDR_BLOCK"
-#   }
-# }
-
 resource "oci_core_security_list" "volumez_sl" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_vcn.vlz_vcn.id
   display_name   = "volumez-sl-${random_string.deploy_id.result}"
 
-  # Ingress rules
-  dynamic "ingress_security_rules" {
-    for_each = [22, 8009, 3260, 8000, 8082, 80, 8765, 9092, 47604, 8443, 5986, 5149, 8999, 443, 3000, 6068]
-    content {
-      protocol    = "6"  # TCP
-      source      = "10.1.20.0/24"
-      description = "TCP port ${ingress_security_rules.value}"
-      tcp_options {
-        min = ingress_security_rules.value
-        max = ingress_security_rules.value
-      }
-    }
-  }
-
-  # ICMP rule
-  ingress_security_rules {
-    protocol    = "1"  # ICMP
-    source      = "10.1.20.0/24"
-    description = "ICMP traffic"
-    icmp_options {
-      type = 3
-      code = 4
-    }
-  }
-
-  # Egress rule
   egress_security_rules {
-    protocol    = "all"
-    destination = "10.1.20.0/24"
-    description = "Allow all outbound traffic"
+    protocol         = "all"
+    destination      = "0.0.0.0/0"
+    destination_type = "CIDR_BLOCK"
   }
 
-  # Optional: Add tags if needed
-  freeform_tags = {
-    "Name"      = "volumez-sl"
-    "Terraform" = "true"
+  ingress_security_rules {
+    protocol    = "all"
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
   }
 }
+
+# resource "oci_core_security_list" "volumez_sl" {
+#   compartment_id = var.compartment_ocid
+#   vcn_id         = oci_core_vcn.vlz_vcn.id
+#   display_name   = "volumez-sl-${random_string.deploy_id.result}"
+
+#   # Ingress rules
+#   dynamic "ingress_security_rules" {
+#     for_each = [22, 8009, 3260, 8000, 8082, 80, 8765, 9092, 47604, 8443, 5986, 5149, 8999, 443, 3000, 6068]
+#     content {
+#       protocol    = "6"  # TCP
+#       source      = "10.1.20.0/24"
+#       description = "TCP port ${ingress_security_rules.value}"
+#       tcp_options {
+#         min = ingress_security_rules.value
+#         max = ingress_security_rules.value
+#       }
+#     }
+#   }
+
+#   # ICMP rule
+#   ingress_security_rules {
+#     protocol    = "1"  # ICMP
+#     source      = "10.1.20.0/24"
+#     description = "ICMP traffic"
+#     icmp_options {
+#       type = 3
+#       code = 4
+#     }
+#   }
+
+#   # Egress rule
+#   egress_security_rules {
+#     protocol    = "all"
+#     destination = "10.1.20.0/24"
+#     description = "Allow all outbound traffic"
+#   }
+
+#   # Optional: Add tags if needed
+#   freeform_tags = {
+#     "Name"      = "volumez-sl"
+#     "Terraform" = "true"
+#   }
+# }
