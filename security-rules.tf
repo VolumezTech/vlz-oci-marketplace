@@ -10,7 +10,25 @@ resource "oci_core_security_list" "volumez-sl" {
   }
 
   ingress_security_rules {
-    protocol    = "all"
+    protocol    = "tcp"
+    tcp_options {
+      source_port_range {
+        min = 22
+        max = 22
+      }
+    }
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+  }
+
+  ingress_security_rules {
+    protocol    = "tcp"
+    tcp_options {
+      source_port_range {
+        min = 8009
+        max = 8009
+      }
+    }
     source      = "0.0.0.0/0"
     source_type = "CIDR_BLOCK"
   }
