@@ -23,7 +23,7 @@ resource "oci_core_security_list" "volumez_sl" {
 
   # Ingress rules
   dynamic "ingress_security_rules" {
-    for_each = [22, 8009, 3260, 8000, 8082, 80, 8765, 9092, 47604, 8443, 5986, 5149, 8999, 443, 3000, 6068]
+    for_each = [22, 8009, 3260, 8082, 8765, 9092, 47604, 8443, 5986, 5149, 8999, 6068]
     content {
       protocol    = "6"  # TCP
       source      = "0.0.0.0/0"
