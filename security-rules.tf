@@ -7,7 +7,7 @@
 #     protocol         = "all"
 #     destination      = "0.0.0.0/0"
 #     destination_type = "CIDR_BLOCK"
-#   }
+#   }§
 
 #   ingress_security_rules {
 #     protocol    = "all"
@@ -23,7 +23,7 @@ resource "oci_core_security_list" "volumez_sl" {
 
   # Ingress rules
   dynamic "ingress_security_rules" {
-    for_each = [22, 8082, 9092, 8443]
+    for_each = [22, 8082, 9092]
     content {
       protocol    = "6"  # TCP
       source      = "0.0.0.0/0"
