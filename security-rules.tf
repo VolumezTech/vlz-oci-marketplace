@@ -17,13 +17,13 @@ resource "oci_core_security_list" "volumez_sl" {
     }
   }
 
-    ingress_security_rules {
+  ingress_security_rules {
     protocol    = "6"  # TCP
     source      = "0.0.0.0/0"
     description = "SSH traffic"
     tcp_options {
-        min = ingress_security_rules.value
-        max = ingress_security_rules.value
+        min = 22
+        max = 22
     }
   }
 
