@@ -207,7 +207,7 @@ def main():
         volume_body = {
             "name": vol_name,
             "type": "file",
-            "size": 2500 if env_size == "Small" else 6000 if env_size == "Medium" else 10000,
+            "size": 512 if i == 1 else 2500 if env_size == "Small" else 6000 if env_size == "Medium" else 10000,
             "policy": env_size.lower(),
             "zone": zone,   
         }
