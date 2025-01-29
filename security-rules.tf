@@ -8,7 +8,7 @@ resource "oci_core_security_list" "volumez_sl" {
     for_each = [8009, 3260]
     content {
       protocol    = "6"  # TCP
-      source      = [var.subnet_cidr_block_list]
+      source      = var.subnet_cidr_block_list[0]
       description = "TCP port ${ingress_security_rules.value}"
       tcp_options {
         min = ingress_security_rules.value
@@ -30,7 +30,7 @@ resource "oci_core_security_list" "volumez_sl" {
   # ICMP rule
   ingress_security_rules {
     protocol    = "1"  # ICMP
-    source      = [var.subnet_cidr_block_list]
+    source      = var.subnet_cidr_block_list[0]
     description = "ICMP traffic"
     icmp_options {
       type = 3
