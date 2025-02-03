@@ -185,8 +185,8 @@ def main():
     
     policy_body = {
         "name": env_size.lower(),
-        "iopswrite": 80000 if env_size == "Small" else 150000 if env_size == "Medium" else 320000,
-        "iopsread": 160000 if env_size == "Small" else 300000 if env_size == "Medium" else 640000,
+        "iopswrite": 80000 if env_size == "Small" else 150000 if env_size == "Medium" else 300000,
+        "iopsread": 160000 if env_size == "Small" else 300000 if env_size == "Medium" else 600000,
         "bandwidthwrite": 600 if env_size == "Small" else 1300 if env_size == "Medium" else 2400,
         "bandwidthread": 1200 if env_size == "Small" else 2800 if env_size == "Medium" else 4800,
         "latencywrite": 500,
@@ -201,7 +201,6 @@ def main():
         "sed": False,
     }
     create_policy(OCI_URL, token, policy_body)
-    לא
     for i in range(2):
         vol_name = f"volume{i+1}"
         volume_body = {
