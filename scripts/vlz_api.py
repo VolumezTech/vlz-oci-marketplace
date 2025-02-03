@@ -194,14 +194,14 @@ def main():
         "localzoneread": True,
         "capacityoptimization": "performance",
         "capacityreservation": 100,
-        "resiliencymedia": 0,
+        "resiliencymedia": 1,
         "resiliencynode": 1,
         "resiliencyzone": 0,
         "encryption": False,
         "sed": False,
     }
     create_policy(OCI_URL, token, policy_body)
-    
+    לא
     for i in range(2):
         vol_name = f"volume{i+1}"
         volume_body = {
