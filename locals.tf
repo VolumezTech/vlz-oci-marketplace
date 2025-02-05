@@ -2,8 +2,8 @@ locals {
   availability_domain = var.availability_domain_name != "" ? var.availability_domain_name : data.oci_identity_availability_domain.ad.name
   fault_domains       = length(var.fault_domains) > 0 ? var.fault_domains : null
   # Env Sizes
-  media_num_of_instances = (var.env_size == "Small" || var.env_size == "Medium") ? 2 : 4
-  media_num_of_ocpus     = (var.env_size == "Small") ? 8 : 16
+  media_num_of_instances = (var.env_size == "Small" || var.env_size == "Medium") ? 4 : 8
+  media_num_of_ocpus     = (var.env_size == "Small") ? 8 : 8
 
   app_num_of_ocpus  = (var.env_size == "Small") ? 20 : var.env_size == "Medium" ? 80 : 96
   app_memory_in_gbs = (var.env_size == "Small") ? 64 : var.env_size == "Medium" ? 128 : 256

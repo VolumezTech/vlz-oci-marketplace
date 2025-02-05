@@ -5,10 +5,10 @@ resource "oci_core_security_list" "volumez_sl" {
 
   # Ingress rules
   dynamic "ingress_security_rules" {
-    for_each = [22, 8009, 3260]
+    for_each = [8009, 3260]
     content {
       protocol    = "6"  # TCP
-      source      = "0.0.0.0/0"
+      source      = var.subnet_cidr_block_list[0]
       description = "TCP port ${ingress_security_rules.value}"
       tcp_options {
         min = ingress_security_rules.value
@@ -17,10 +17,20 @@ resource "oci_core_security_list" "volumez_sl" {
     }
   }
 
+  ingress_security_rules {
+    protocol    = "6"  # TCP
+    source      = "0.0.0.0/0"
+    description = "SSH traffic"
+    tcp_options {
+        min = 22
+        max = 22
+    }
+  }
+
   # ICMP rule
   ingress_security_rules {
     protocol    = "1"  # ICMP
-    source      = "0.0.0.0/0"
+    source      = var.subnet_cidr_block_list[0]
     description = "ICMP traffic"
     icmp_options {
       type = 3

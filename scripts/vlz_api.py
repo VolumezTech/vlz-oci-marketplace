@@ -185,29 +185,28 @@ def main():
     
     policy_body = {
         "name": env_size.lower(),
-        "iopswrite": 80000 if env_size == "Small" else 160000 if env_size == "Medium" else 320000,
-        "iopsread": 160000 if env_size == "Small" else 320000 if env_size == "Medium" else 640000,
-        "bandwidthwrite": 600 if env_size == "Small" else 1200 if env_size == "Medium" else 2400,
-        "bandwidthread": 1200 if env_size == "Small" else 2400 if env_size == "Medium" else 4800,
+        "iopswrite": 80000 if env_size == "Small" else 150000 if env_size == "Medium" else 300000,
+        "iopsread": 160000 if env_size == "Small" else 300000 if env_size == "Medium" else 600000,
+        "bandwidthwrite": 600 if env_size == "Small" else 1300 if env_size == "Medium" else 2400,
+        "bandwidthread": 1200 if env_size == "Small" else 2800 if env_size == "Medium" else 4800,
         "latencywrite": 500,
         "latencyread": 500,
         "localzoneread": True,
         "capacityoptimization": "performance",
         "capacityreservation": 100,
-        "resiliencymedia": 0,
+        "resiliencymedia": 1,
         "resiliencynode": 1,
         "resiliencyzone": 0,
         "encryption": False,
         "sed": False,
     }
     create_policy(OCI_URL, token, policy_body)
-    
     for i in range(2):
         vol_name = f"volume{i+1}"
         volume_body = {
             "name": vol_name,
             "type": "file",
-            "size": 2500 if env_size == "Small" else 6000 if env_size == "Medium" else 10000,
+            "size": 512 if i == 1 else 2500 if env_size == "Small" else 6000 if env_size == "Medium" else 10000,
             "policy": env_size.lower(),
             "zone": zone,   
         }
