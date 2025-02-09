@@ -203,6 +203,19 @@ unassing_medias() {
     done
 }
 
+get_polices() {
+    local limit=1000000  # Seems like paging not implemented 
+    response=$(api_get "policies")
+    # Extract user ploices by exluding created by empty email address
+    USER_POLICES=$(echo "$response" |jq -r '.[] | select(.createdbyuseremail != "") | .name')
+}
+
+del_polices() {
+    for p in $USER_POLICES ; do
+        api_delete policies/$p
+    done
+}
+
 wait_for_running_jobs() {
     while true; do
         num_of_running_jobs=$(api_get "jobs" | grep -o '"progress":[0-9]\{1,3\}' | grep -v "100" | wc -l)
@@ -240,3 +253,7 @@ wait_for_running_jobs
 # 4. delete nodes
 get_nodes
 del_nodes
+
+# 5. delete user defined polices
+get_polices
+del_polices
