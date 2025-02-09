@@ -193,7 +193,7 @@ variables:
     type: enum
     title: VLZ Environment Size
     description: >+
-        Medium: 65K TPS, 2xVM.Standard.E5.Flex (72 OCPU, 128GB Memory), 4xVM.DenseIO.E5.Flex (8 OCPU)------------------------------------------------------------------------------Large: 125K TPS, 2xVM.Standard.E5.Flex (72 OCPU, 128GB Memory), 8xVM.DenseIO.E5.Flex (8 OCPU)-------------------------------------------------------------------------------
+        Medium: 65K TPS, 2xVM.Standard.E5.Flex (72 OCPU, 128GB Memory), 4xVM.DenseIO.E5.Flex (8 OCPU)------------------------------------------------------------------------------Large: 125K TPS, 2xVM.Standard.E5.Flex (96 OCPU, 256GB Memory), 8xVM.DenseIO.E5.Flex (8 OCPU)-------------------------------------------------------------------------------
     required: true
     enum:
       - Medium
