@@ -20,9 +20,9 @@ vlz_rest_apigw      = "https://oci.api.volumez.com"
 ### Media ###
 media_image_id            = "ocid1.image.oc1..aaaaaaaae4o5zvaipl7xmspt3fhvzntb23vq42jszowjbso4kcl4lwzjy73a"
 media_num_of_instances    = 1
-media_shape               = "VM.DenseIO.E4.Flex"
+media_shape               = "VM.DenseIO.E5.Flex"
 media_num_of_ocpus        = 8
-media_memory_in_gbs       = 128
+media_memory_in_gbs       = 96
 media_use_placement_group = false
 media_ignore_cpu_mem_req  = false
 

@@ -96,7 +96,7 @@ variable "media_shape" {
 variable "media_memory_in_gbs" {
   type        = number
   description = "Memory in GBs"
-  default     = 32
+  default     = 96
 }
 
 variable "media_num_of_ocpus" {

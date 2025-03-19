@@ -50,7 +50,6 @@ resource "oci_core_route_table" "vlz_route_table" {
 resource "oci_core_subnet" "vlz_subnet" {
   count = length(var.subnet_cidr_block_list)
 
-  availability_domain = local.availability_domain
   cidr_block          = var.subnet_cidr_block_list[count.index]
   display_name        = "VlzSubnet-${count.index}-${random_string.deploy_id.result}"
   dns_label           = "vlzsubnet${count.index}"
