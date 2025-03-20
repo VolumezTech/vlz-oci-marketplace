@@ -90,18 +90,18 @@ variable "media_image_id" {
 variable "media_shape" {
   type        = string
   description = "Media Shape"
-  default     = "VM.DenseIO.E5.Flex"
+  default     = "VM.DenseIO.E4.Flex"
 }
 
 variable "media_memory_in_gbs" {
   type        = number
   description = "Memory in GBs"
-  default     = 96
+  default     = 128
 }
 
 variable "media_num_of_ocpus" {
   type        = number
-  description = "Memory in GBs"
+  description = "Number of cores"
   default     = 8
 }
 
@@ -145,7 +145,7 @@ variable "app_memory_in_gbs" {
 
 variable "app_num_of_ocpus" {
   type        = number
-  description = "Memory in GBs"
+  description = "Number of cores"
   default     = 20
 }
 
