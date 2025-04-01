@@ -24,8 +24,8 @@ curl -X POST \
 
 echo -e "\nAttempting to sign in..."
 
-# Signin request - hide output but check status
-signin_response=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+# Signin request - capture both response body and status code
+signin_output=$(curl -s -w "\n%{http_code}" -X POST \
   https://oci.api.volumez.com/signin \
   -H 'Content-Type: application/json' \
   -d "{
@@ -33,8 +33,14 @@ signin_response=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
     \"password\": \"$PASSWORD\"
   }")
 
-if [ "$signin_response" -eq 200 ]; then
+# Extract status code from the last line
+status_code=$(echo "$signin_output" | tail -n1)
+# Extract response body (everything except the last line)
+response_body=$(echo "$signin_output" | sed '$d')
+
+if [ "$status_code" -eq 200 ]; then
   echo "Sign in successful!"
 else
-  echo "Sign in failed with status code: $signin_response"
+  echo "Sign in failed with status code: $status_code"
+  echo "Error details: $response_body"
 fi
